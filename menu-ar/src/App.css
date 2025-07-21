@@ -109,7 +109,7 @@ body {
 
 @media (max-width: 600px) {
   .menu-card {
-    padding: 10px 2px 8px 2px;
+    padding: 18px 8px 14px 8px;
     margin: 8px 2px;
   }
   .menu-title {
