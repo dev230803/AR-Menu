@@ -9,9 +9,6 @@ import dishModel from "../models/20_07_2025.glb";
 
 Chart.register(ArcElement, Tooltip, Legend);
 
-const placeholderImg =
-  "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg";
-
 const DishDetail = () => {
   const { dishId } = useParams();
   const [show3D, setShow3D] = useState(false);
@@ -71,8 +68,8 @@ const DishDetail = () => {
           Price: ₹{dish.price.toFixed(2)}
         </div>
         <img
-          src={placeholderImg}
-          alt="Dish"
+          src={dish.image}
+          alt={dish.name}
           style={{
             width: "100%",
             maxWidth: 320,

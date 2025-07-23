@@ -26,9 +26,12 @@ const Icon = () => (
   </svg>
 );
 
+const BESTSELLER_ID = "bestsellers";
+
 const MenuHome = () => {
   const navigate = useNavigate();
-  const [expanded, setExpanded] = useState(categories.map((c) => c.id)); // all open by default
+  // Only bestsellers open by default
+  const [expanded, setExpanded] = useState([BESTSELLER_ID]);
   const [search, setSearch] = useState("");
 
   const toggleCategory = (catId) => {
@@ -63,6 +66,15 @@ const MenuHome = () => {
         )
     );
   }
+
+  // Bestsellers logic
+  const bestsellers = dishes.filter((d) => d.bestseller);
+  const showBestsellers =
+    bestsellers.length > 0 &&
+    (!searchLower ||
+      bestsellers.some((dish) =>
+        dish.name.toLowerCase().includes(searchLower)
+      ));
 
   return (
     <div className="menu-card" style={{ position: "relative" }}>
@@ -109,6 +121,90 @@ const MenuHome = () => {
           background: "#fff9f3",
         }}
       />
+      {/* Bestsellers Section */}
+      {showBestsellers && (
+        <div className="accordion" key={BESTSELLER_ID}>
+          <div
+            className="accordion-header"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              cursor: "pointer",
+              background: "#ffe7b3",
+            }}
+            onClick={() => toggleCategory(BESTSELLER_ID)}
+          >
+            <span style={{ flex: 1, fontWeight: 700, color: "#b47b2b" }}>
+              Bestsellers ⭐
+            </span>
+            <span
+              style={{
+                marginLeft: 12,
+                fontSize: 18,
+                cursor: "pointer",
+                userSelect: "none",
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleCategory(BESTSELLER_ID);
+              }}
+              aria-label={
+                expanded.includes(BESTSELLER_ID) ? "Collapse" : "Expand"
+              }
+            >
+              {expanded.includes(BESTSELLER_ID) ? "▲" : "▼"}
+            </span>
+          </div>
+          {expanded.includes(BESTSELLER_ID) && (
+            <div className="accordion-content">
+              {bestsellers.filter(
+                (dish) =>
+                  !searchLower || dish.name.toLowerCase().includes(searchLower)
+              ).length === 0 ? (
+                <div
+                  style={{ color: "#b47b2b", textAlign: "center", padding: 8 }}
+                >
+                  No bestsellers found.
+                </div>
+              ) : (
+                bestsellers
+                  .filter(
+                    (dish) =>
+                      !searchLower ||
+                      dish.name.toLowerCase().includes(searchLower)
+                  )
+                  .map((dish) => (
+                    <div
+                      className="dish-list-item"
+                      key={dish.id}
+                      onClick={() => navigate(`/dish/${dish.id}`)}
+                      style={{ alignItems: "center" }}
+                    >
+                      <img
+                        src={dish.image}
+                        alt={dish.name}
+                        style={{
+                          width: 48,
+                          height: 48,
+                          objectFit: "cover",
+                          borderRadius: 8,
+                          marginRight: 12,
+                        }}
+                      />
+                      <div className="dish-info">
+                        <div className="dish-name">{dish.name}</div>
+                        <div className="dish-desc">{dish.description}</div>
+                      </div>
+                      <div className="dish-price">₹{dish.price.toFixed(2)}</div>
+                    </div>
+                  ))
+              )}
+            </div>
+          )}
+        </div>
+      )}
+      {/* Category Accordions */}
       {filteredCategories.length === 0 ? (
         <div style={{ textAlign: "center", color: "#b47b2b", marginTop: 24 }}>
           No results found.
@@ -164,7 +260,19 @@ const MenuHome = () => {
                         className="dish-list-item"
                         key={dish.id}
                         onClick={() => navigate(`/dish/${dish.id}`)}
+                        style={{ alignItems: "center" }}
                       >
+                        <img
+                          src={dish.image}
+                          alt={dish.name}
+                          style={{
+                            width: 48,
+                            height: 48,
+                            objectFit: "cover",
+                            borderRadius: 8,
+                            marginRight: 12,
+                          }}
+                        />
                         <div className="dish-info">
                           <div className="dish-name">{dish.name}</div>
                           <div className="dish-desc">{dish.description}</div>
