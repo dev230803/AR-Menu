@@ -3,7 +3,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: url('./assets/marble.jpg') repeat center center fixed;
+  background: url('/public/background/bg.jpg') repeat center center fixed;
   background-size: cover;
 }
 
