@@ -1,22 +1,34 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { categories, dishes } from "../menuData";
+import { useVegFilter } from "../context/VegFilterContext";
 import "../App.css";
 
 const Category = () => {
   const { categoryId } = useParams();
   const navigate = useNavigate();
+  const { vegFilter, setVegOnly, setNonVegOnly, clearFilter } = useVegFilter();
   const category = categories.find((c) => c.id === categoryId);
   const [search, setSearch] = useState("");
 
   if (!category) return <div>Category not found</div>;
 
-  const filteredDishes = dishes.filter(
-    (d) =>
-      d.category === categoryId &&
-      (d.name.toLowerCase().includes(search.trim().toLowerCase()) ||
-        d.description.toLowerCase().includes(search.trim().toLowerCase()))
-  );
+  let filteredDishes = dishes.filter((d) => d.category === categoryId);
+
+  // Apply veg filter
+  if (vegFilter !== null) {
+    filteredDishes = filteredDishes.filter((dish) => dish.veg === vegFilter);
+  }
+
+  // Apply search filter
+  if (search.trim()) {
+    const searchLower = search.trim().toLowerCase();
+    filteredDishes = filteredDishes.filter(
+      (d) =>
+        d.name.toLowerCase().includes(searchLower) ||
+        d.description.toLowerCase().includes(searchLower)
+    );
+  }
 
   return (
     <div className="menu-card" style={{ position: "relative" }}>
@@ -43,6 +55,73 @@ const Category = () => {
       <h2 className="menu-title" style={{ marginBottom: 12 }}>
         {category.name}
       </h2>
+
+      {/* Veg Filter Buttons */}
+      <div
+        style={{
+          display: "flex",
+          gap: 8,
+          marginBottom: 16,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <button
+          onClick={setVegOnly}
+          style={{
+            padding: "8px 16px",
+            borderRadius: 8,
+            border:
+              vegFilter === true ? "2px solid #4caf50" : "2px solid #e0c9a6",
+            background: vegFilter === true ? "#4caf50" : "transparent",
+            color: vegFilter === true ? "#fff" : "#b47b2b",
+            fontSize: 14,
+            fontWeight: 600,
+            cursor: "pointer",
+            transition: "all 0.2s",
+          }}
+        >
+          Veg Only
+        </button>
+        <button
+          onClick={setNonVegOnly}
+          style={{
+            padding: "8px 16px",
+            borderRadius: 8,
+            border:
+              vegFilter === false ? "2px solid #ff6b6b" : "2px solid #e0c9a6",
+            background: vegFilter === false ? "#ff6b6b" : "transparent",
+            color: vegFilter === false ? "#fff" : "#b47b2b",
+            fontSize: 14,
+            fontWeight: 600,
+            cursor: "pointer",
+            transition: "all 0.2s",
+          }}
+        >
+          Non-Veg Only
+        </button>
+        {vegFilter !== null && (
+          <button
+            onClick={clearFilter}
+            style={{
+              padding: "8px 12px",
+              borderRadius: 8,
+              border: "2px solid #e0c9a6",
+              background: "transparent",
+              color: "#b47b2b",
+              fontSize: 16,
+              fontWeight: 600,
+              cursor: "pointer",
+              transition: "all 0.2s",
+              minWidth: 40,
+            }}
+            aria-label="Clear filter"
+          >
+            ×
+          </button>
+        )}
+      </div>
+
       <input
         type="text"
         placeholder={`Search in ${category.name}...`}

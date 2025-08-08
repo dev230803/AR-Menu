@@ -19,6 +19,7 @@ export const dishes = [
     nutrition: { protein: 3, carbs: 15, fat: 5 },
     quantity: "4 pieces",
     bestseller: true,
+    veg: true,
     image:
       "https://d1mxd7n691o8sz.cloudfront.net/static/recipe/recipe/2023-12/Vegetable-Spring-Rolls-2-1-906001560ca545c8bc72baf473f230b4_thumbnail_170.jpeg",
   },
@@ -43,6 +44,7 @@ export const dishes = [
     nutrition: { protein: 6, carbs: 28, fat: 18 },
     quantity: "1 slice",
     bestseller: false,
+    veg: true,
     image:
       "https://butternutbakeryblog.com/wp-content/uploads/2020/04/cheesecake-slice.jpg",
   },
@@ -55,6 +57,7 @@ export const dishes = [
     nutrition: { protein: 7, carbs: 12, fat: 10 },
     quantity: "1 bowl",
     bestseller: true,
+    veg: false,
     image:
       "https://www.allrecipes.com/thmb/mXZ0Tulwn3x9_YB_ZbkiTveDYFE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/229063-Classic-Restaurant-Caesar-Salad-ddmfs-4x3-231-89bafa5e54dd4a8c933cf2a5f9f12a6f.jpg",
   },
@@ -67,6 +70,7 @@ export const dishes = [
     nutrition: { protein: 2, carbs: 14, fat: 3 },
     quantity: "1 bowl",
     bestseller: false,
+    veg: true,
     image:
       "https://www.indianhealthyrecipes.com/wp-content/uploads/2022/11/tomato-soup-recipe.jpg",
   },
@@ -79,6 +83,7 @@ export const dishes = [
     nutrition: { protein: 0, carbs: 25, fat: 0 },
     quantity: "1 glass",
     bestseller: false,
+    veg: true,
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3CxYonC8qV5pNC6NDv66GJu7zocUkRnPCyw&s",
   },
@@ -91,6 +96,7 @@ export const dishes = [
     nutrition: { protein: 4, carbs: 30, fat: 2 },
     quantity: "1 glass",
     bestseller: true,
+    veg: true,
     image:
       "https://www.kerryfoodservice.com/cdn/shop/files/DVGMangoSmoothie_015_SmoothieMix_Photoshoot_2024_Recipe_1000x.png?v=1716408442",
   },
@@ -103,6 +109,7 @@ export const dishes = [
     nutrition: { protein: 5, carbs: 10, fat: 9 },
     quantity: "1 bowl",
     bestseller: false,
+    veg: true,
     image:
       "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/greek_salad_16407_16x9.jpg",
   },
@@ -115,6 +122,7 @@ export const dishes = [
     nutrition: { protein: 3, carbs: 18, fat: 4 },
     quantity: "1 bowl",
     bestseller: true,
+    veg: true,
     image:
       "https://i0.wp.com/asthaskitchendilse.wordpress.com/wp-content/uploads/2022/02/wp-1643806181558.jpg?fit=900%2C1200&ssl=1",
   },
@@ -127,6 +135,7 @@ export const dishes = [
     nutrition: { protein: 4, carbs: 32, fat: 15 },
     quantity: "1 piece",
     bestseller: true,
+    veg: true,
     image:
       "https://icecreambakery.in/wp-content/uploads/2024/12/Brownie-Recipe-with-Cocoa-Powder.jpg",
   },

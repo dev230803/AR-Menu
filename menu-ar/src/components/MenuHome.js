@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { categories, dishes } from "../menuData";
+import { useVegFilter } from "../context/VegFilterContext";
 import "../App.css";
 
-// You can replace this with your own SVG or PNG icon
+// Decorative corner icon - simple geometric pattern
 const Icon = () => (
   <svg
     width="100%"
@@ -12,16 +13,24 @@ const Icon = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g opacity="0.7">
-      <ellipse cx="24" cy="24" rx="22" ry="22" fill="#f7e7d3" />
-      <path
-        d="M16 32c0-4 8-4 8 0"
-        stroke="#b47b2b"
-        strokeWidth="2"
-        strokeLinecap="round"
+    <g opacity="0.3">
+      <circle
+        cx="24"
+        cy="24"
+        r="20"
+        fill="none"
+        stroke="#e0c9a6"
+        strokeWidth="1"
       />
-      <ellipse cx="20" cy="20" rx="2" ry="3" fill="#b47b2b" />
-      <ellipse cx="28" cy="20" rx="2" ry="3" fill="#b47b2b" />
+      <circle
+        cx="24"
+        cy="24"
+        r="12"
+        fill="none"
+        stroke="#e0c9a6"
+        strokeWidth="1"
+      />
+      <circle cx="24" cy="24" r="4" fill="#e0c9a6" />
     </g>
   </svg>
 );
@@ -30,9 +39,19 @@ const BESTSELLER_ID = "bestsellers";
 
 const MenuHome = () => {
   const navigate = useNavigate();
+  const { vegFilter, setVegOnly, setNonVegOnly, clearFilter } = useVegFilter();
   // Only bestsellers open by default
   const [expanded, setExpanded] = useState([BESTSELLER_ID]);
   const [search, setSearch] = useState("");
+  const [showPopup, setShowPopup] = useState(true);
+
+  // Hide popup after 5 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPopup(false);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const toggleCategory = (catId) => {
     setExpanded((prev) =>
@@ -46,17 +65,23 @@ const MenuHome = () => {
   const searchLower = search.trim().toLowerCase();
   let filteredCategories = categories;
   let filteredDishes = dishes;
+
+  // Apply veg filter
+  if (vegFilter !== null) {
+    filteredDishes = filteredDishes.filter((dish) => dish.veg === vegFilter);
+  }
+
   if (searchLower) {
     filteredCategories = categories.filter(
       (cat) =>
         cat.name.toLowerCase().includes(searchLower) ||
-        dishes.some(
+        filteredDishes.some(
           (dish) =>
             dish.category === cat.id &&
             dish.name.toLowerCase().includes(searchLower)
         )
     );
-    filteredDishes = dishes.filter(
+    filteredDishes = filteredDishes.filter(
       (dish) =>
         dish.name.toLowerCase().includes(searchLower) ||
         categories.find(
@@ -68,7 +93,7 @@ const MenuHome = () => {
   }
 
   // Bestsellers logic
-  const bestsellers = dishes.filter((d) => d.bestseller);
+  const bestsellers = filteredDishes.filter((d) => d.bestseller);
   const showBestsellers =
     bestsellers.length > 0 &&
     (!searchLower ||
@@ -104,6 +129,73 @@ const MenuHome = () => {
         The Gourmet House
       </div>
       <h1 className="menu-title">Menu</h1>
+
+      {/* Veg Filter Buttons */}
+      <div
+        style={{
+          display: "flex",
+          gap: 8,
+          marginBottom: 16,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <button
+          onClick={setVegOnly}
+          style={{
+            padding: "8px 16px",
+            borderRadius: 8,
+            border:
+              vegFilter === true ? "2px solid #4caf50" : "2px solid #e0c9a6",
+            background: vegFilter === true ? "#4caf50" : "transparent",
+            color: vegFilter === true ? "#fff" : "#b47b2b",
+            fontSize: 14,
+            fontWeight: 600,
+            cursor: "pointer",
+            transition: "all 0.2s",
+          }}
+        >
+          Veg Only
+        </button>
+        <button
+          onClick={setNonVegOnly}
+          style={{
+            padding: "8px 16px",
+            borderRadius: 8,
+            border:
+              vegFilter === false ? "2px solid #ff6b6b" : "2px solid #e0c9a6",
+            background: vegFilter === false ? "#ff6b6b" : "transparent",
+            color: vegFilter === false ? "#fff" : "#b47b2b",
+            fontSize: 14,
+            fontWeight: 600,
+            cursor: "pointer",
+            transition: "all 0.2s",
+          }}
+        >
+          Non-Veg Only
+        </button>
+        {vegFilter !== null && (
+          <button
+            onClick={clearFilter}
+            style={{
+              padding: "8px 12px",
+              borderRadius: 8,
+              border: "2px solid #e0c9a6",
+              background: "transparent",
+              color: "#b47b2b",
+              fontSize: 16,
+              fontWeight: 600,
+              cursor: "pointer",
+              transition: "all 0.2s",
+              minWidth: 40,
+            }}
+            aria-label="Clear filter"
+          >
+            ×
+          </button>
+        )}
+      </div>
+
       <input
         type="text"
         placeholder="Search by dish or category..."
@@ -174,13 +266,34 @@ const MenuHome = () => {
                       !searchLower ||
                       dish.name.toLowerCase().includes(searchLower)
                   )
-                  .map((dish) => (
+                  .map((dish, index) => (
                     <div
                       className="dish-list-item"
                       key={dish.id}
                       onClick={() => navigate(`/dish/${dish.id}`)}
-                      style={{ alignItems: "center" }}
+                      style={{ alignItems: "center", position: "relative" }}
                     >
+                      {showPopup && index === 0 && (
+                        <div
+                          style={{
+                            position: "absolute",
+                            top: "-40px",
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            background: "#4caf50",
+                            color: "white",
+                            padding: "8px 12px",
+                            borderRadius: "6px",
+                            fontSize: "12px",
+                            fontWeight: "600",
+                            zIndex: 10,
+                            whiteSpace: "nowrap",
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                          }}
+                        >
+                          Click on a dish to view it in 3D
+                        </div>
+                      )}
                       <img
                         src={dish.image}
                         alt={dish.name}
