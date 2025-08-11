@@ -5,7 +5,6 @@ import { Pie } from "react-chartjs-2";
 import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 import "../App.css";
 import "@google/model-viewer";
-import dishModel from "../models/20_07_2025.glb";
 
 Chart.register(ArcElement, Tooltip, Legend);
 
@@ -178,7 +177,7 @@ const DishDetail = () => {
               ×
             </button>
             <model-viewer
-              src={dishModel}
+              src={dish.model}
               ar
               ar-modes="webxr scene-viewer quick-look"
               camera-controls
@@ -191,8 +190,8 @@ const DishDetail = () => {
                 background: "#f7f7f7",
                 borderRadius: 8,
               }}
-              ios-src={dishModel}
-              alt="3D model of dish"
+              ios-src={dish.model}
+              alt={`3D model of ${dish.name}`}
               shadow-intensity="1"
               exposure="1.1"
             ></model-viewer>

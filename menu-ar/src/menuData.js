@@ -1,5 +1,7 @@
 // Sample menu data for the AR menu app
 
+const dishModel = require("./models/apple_plate.glb");
+
 export const categories = [
   { id: "starters", name: "Starters" },
   { id: "main", name: "Main Course" },
@@ -22,6 +24,7 @@ export const dishes = [
     veg: true,
     image:
       "https://d1mxd7n691o8sz.cloudfront.net/static/recipe/recipe/2023-12/Vegetable-Spring-Rolls-2-1-906001560ca545c8bc72baf473f230b4_thumbnail_170.jpeg",
+    model: dishModel,
   },
   {
     id: "grilled-chicken",
@@ -32,8 +35,10 @@ export const dishes = [
     nutrition: { protein: 30, carbs: 2, fat: 8 },
     quantity: "1 plate",
     bestseller: true,
+    veg: false,
     image:
       "https://www.spiceindiaonline.com/wp-content/uploads/2021/05/Tandoori-Chicken-20.jpg",
+    model: require("./models/roasted_chicken.glb"),
   },
   {
     id: "cheesecake",
@@ -47,6 +52,7 @@ export const dishes = [
     veg: true,
     image:
       "https://butternutbakeryblog.com/wp-content/uploads/2020/04/cheesecake-slice.jpg",
+    model: dishModel,
   },
   {
     id: "caesar-salad",
@@ -60,6 +66,7 @@ export const dishes = [
     veg: false,
     image:
       "https://www.allrecipes.com/thmb/mXZ0Tulwn3x9_YB_ZbkiTveDYFE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/229063-Classic-Restaurant-Caesar-Salad-ddmfs-4x3-231-89bafa5e54dd4a8c933cf2a5f9f12a6f.jpg",
+    model: require("./models/salad_plate.glb"),
   },
   {
     id: "tomato-soup",
@@ -73,6 +80,7 @@ export const dishes = [
     veg: true,
     image:
       "https://www.indianhealthyrecipes.com/wp-content/uploads/2022/11/tomato-soup-recipe.jpg",
+    model: dishModel,
   },
   {
     id: "lemonade",
@@ -86,6 +94,7 @@ export const dishes = [
     veg: true,
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3CxYonC8qV5pNC6NDv66GJu7zocUkRnPCyw&s",
+    model: dishModel,
   },
   {
     id: "mango-smoothie",
@@ -99,6 +108,7 @@ export const dishes = [
     veg: true,
     image:
       "https://www.kerryfoodservice.com/cdn/shop/files/DVGMangoSmoothie_015_SmoothieMix_Photoshoot_2024_Recipe_1000x.png?v=1716408442",
+    model: dishModel,
   },
   {
     id: "greek-salad",
@@ -112,6 +122,7 @@ export const dishes = [
     veg: true,
     image:
       "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/greek_salad_16407_16x9.jpg",
+    model: dishModel,
   },
   {
     id: "veg-manchow-soup",
@@ -125,6 +136,7 @@ export const dishes = [
     veg: true,
     image:
       "https://i0.wp.com/asthaskitchendilse.wordpress.com/wp-content/uploads/2022/02/wp-1643806181558.jpg?fit=900%2C1200&ssl=1",
+    model: dishModel,
   },
   {
     id: "brownie",
@@ -138,5 +150,20 @@ export const dishes = [
     veg: true,
     image:
       "https://icecreambakery.in/wp-content/uploads/2024/12/Brownie-Recipe-with-Cocoa-Powder.jpg",
+    model: dishModel,
+  },
+  {
+    id: "cupcake",
+    name: "Vanilla Cupcake",
+    category: "desserts",
+    price: 129,
+    description: "Soft vanilla cupcake topped with buttercream frosting.",
+    nutrition: { protein: 3, carbs: 35, fat: 12 },
+    quantity: "1 piece",
+    bestseller: false,
+    veg: true,
+    image:
+      "https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=400&q=80",
+    model: require("./models/cupcake.glb"),
   },
 ];
