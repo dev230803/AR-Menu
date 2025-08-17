@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LandingPage from "./components/LandingPage";
 import MenuHome from "./components/MenuHome";
 import Category from "./components/Category";
 import DishDetail from "./components/DishDetail";
@@ -11,9 +12,10 @@ function App() {
     <VegFilterProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<MenuHome />} />
-          <Route path="/category/:categoryId" element={<Category />} />
-          <Route path="/dish/:dishId" element={<DishDetail />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/demo" element={<MenuHome />} />
+          <Route path="/demo/category/:categoryId" element={<Category />} />
+          <Route path="/demo/dish/:dishId" element={<DishDetail />} />
         </Routes>
       </Router>
     </VegFilterProvider>

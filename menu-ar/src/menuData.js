@@ -13,20 +13,6 @@ export const categories = [
 
 export const dishes = [
   {
-    id: "spring-rolls",
-    name: "Spring Rolls",
-    category: "starters",
-    price: 149,
-    description: "Crispy rolls stuffed with veggies.",
-    nutrition: { protein: 3, carbs: 15, fat: 5 },
-    quantity: "4 pieces",
-    bestseller: true,
-    veg: true,
-    image:
-      "https://d1mxd7n691o8sz.cloudfront.net/static/recipe/recipe/2023-12/Vegetable-Spring-Rolls-2-1-906001560ca545c8bc72baf473f230b4_thumbnail_170.jpeg",
-    model: dishModel,
-  },
-  {
     id: "grilled-chicken",
     name: "Grilled Chicken",
     category: "main",
@@ -80,6 +66,20 @@ export const dishes = [
     veg: true,
     image:
       "https://www.indianhealthyrecipes.com/wp-content/uploads/2022/11/tomato-soup-recipe.jpg",
+    model: dishModel,
+  },
+  {
+    id: "spring-rolls",
+    name: "Spring Rolls",
+    category: "starters",
+    price: 149,
+    description: "Crispy rolls stuffed with veggies.",
+    nutrition: { protein: 3, carbs: 15, fat: 5 },
+    quantity: "4 pieces",
+    bestseller: true,
+    veg: true,
+    image:
+      "https://d1mxd7n691o8sz.cloudfront.net/static/recipe/recipe/2023-12/Vegetable-Spring-Rolls-2-1-906001560ca545c8bc72baf473f230b4_thumbnail_170.jpeg",
     model: dishModel,
   },
   {

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@google/model-viewer": "^4.1.0",
     "chart.js": "^4.5.0",
     "cra-template-pwa": "2.0.0",
@@ -16,6 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:css": "tailwindcss -i ./src/index.css -o ./src/tailwind.css",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

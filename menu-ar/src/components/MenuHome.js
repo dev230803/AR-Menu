@@ -270,7 +270,7 @@ const MenuHome = () => {
                     <div
                       className="dish-list-item"
                       key={dish.id}
-                      onClick={() => navigate(`/dish/${dish.id}`)}
+                      onClick={() => navigate(`/demo/dish/${dish.id}`)}
                       style={{ alignItems: "center", position: "relative" }}
                     >
                       {showPopup && index === 0 && (
@@ -333,7 +333,7 @@ const MenuHome = () => {
                 alignItems: "center",
                 cursor: "pointer",
               }}
-              onClick={() => navigate(`/category/${cat.id}`)}
+              onClick={() => navigate(`/demo/category/${cat.id}`)}
             >
               <span style={{ flex: 1 }}>{cat.name}</span>
               <span
@@ -372,7 +372,7 @@ const MenuHome = () => {
                       <div
                         className="dish-list-item"
                         key={dish.id}
-                        onClick={() => navigate(`/dish/${dish.id}`)}
+                        onClick={() => navigate(`/demo/dish/${dish.id}`)}
                         style={{ alignItems: "center" }}
                       >
                         <img

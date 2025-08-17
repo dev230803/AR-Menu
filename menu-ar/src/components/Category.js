@@ -149,7 +149,7 @@ const Category = () => {
             <div
               key={dish.id}
               className="dish-card"
-              onClick={() => navigate(`/dish/${dish.id}`)}
+              onClick={() => navigate(`/demo/dish/${dish.id}`)}
               style={{
                 display: "flex",
                 alignItems: "center",
