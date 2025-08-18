@@ -55,9 +55,11 @@ const HeroSection = () => {
           </div>
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-white mb-2">
-              24/7
+              {/* 24/7 */}
+              Real-time
             </div>
-            <div className="text-white/80">Menu Availability</div>
+            {/* <div className="text-white/80">Menu Available</div> */}
+            <div className="text-white/80">Menu Updates</div>
           </div>
         </div>
 
