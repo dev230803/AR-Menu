@@ -1,69 +1,69 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { categories, dishes } from "../menuData";
 import { useVegFilter } from "../context/VegFilterContext";
-import "../App.css";
 
-// Decorative corner icon - simple geometric pattern
-const Icon = () => (
+// 3D Cube Icon Component
+const CubeIcon = () => (
   <svg
-    width="100%"
-    height="100%"
-    viewBox="0 0 48 48"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g opacity="0.3">
-      <circle
-        cx="24"
-        cy="24"
-        r="20"
-        fill="none"
-        stroke="#e0c9a6"
-        strokeWidth="1"
-      />
-      <circle
-        cx="24"
-        cy="24"
-        r="12"
-        fill="none"
-        stroke="#e0c9a6"
-        strokeWidth="1"
-      />
-      <circle cx="24" cy="24" r="4" fill="#e0c9a6" />
-    </g>
+    <path
+      d="M12 2L2 7L12 12L22 7L12 2Z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2 17L12 22L22 17"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2 12L12 17L22 12"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
-const BESTSELLER_ID = "bestsellers";
+// Search Icon Component
+const SearchIcon = () => (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2" />
+    <path
+      d="m21 21-4.35-4.35"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 const MenuHome = () => {
   const navigate = useNavigate();
   const { vegFilter, setVegOnly, setNonVegOnly, clearFilter } = useVegFilter();
-  // Only bestsellers open by default
-  const [expanded, setExpanded] = useState([BESTSELLER_ID]);
   const [search, setSearch] = useState("");
-  const [showPopup, setShowPopup] = useState(true);
-
-  // Hide popup after 5 seconds
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowPopup(false);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const toggleCategory = (catId) => {
-    setExpanded((prev) =>
-      prev.includes(catId)
-        ? prev.filter((id) => id !== catId)
-        : [...prev, catId]
-    );
-  };
+  const [activeCategory, setActiveCategory] = useState("starters");
 
   // Filter logic
   const searchLower = search.trim().toLowerCase();
-  let filteredCategories = categories;
   let filteredDishes = dishes;
 
   // Apply veg filter
@@ -71,336 +71,207 @@ const MenuHome = () => {
     filteredDishes = filteredDishes.filter((dish) => dish.veg === vegFilter);
   }
 
+  // Apply search filter
   if (searchLower) {
-    filteredCategories = categories.filter(
-      (cat) =>
-        cat.name.toLowerCase().includes(searchLower) ||
-        filteredDishes.some(
-          (dish) =>
-            dish.category === cat.id &&
-            dish.name.toLowerCase().includes(searchLower)
-        )
-    );
     filteredDishes = filteredDishes.filter(
       (dish) =>
         dish.name.toLowerCase().includes(searchLower) ||
-        categories.find(
-          (cat) =>
-            cat.id === dish.category &&
-            cat.name.toLowerCase().includes(searchLower)
-        )
+        dish.description.toLowerCase().includes(searchLower)
     );
   }
 
-  // Bestsellers logic
+  // Get bestsellers
   const bestsellers = filteredDishes.filter((d) => d.bestseller);
-  const showBestsellers =
-    bestsellers.length > 0 &&
-    (!searchLower ||
-      bestsellers.some((dish) =>
-        dish.name.toLowerCase().includes(searchLower)
-      ));
+
+  // Get dishes for active category
+  const categoryDishes = filteredDishes.filter(
+    (d) => d.category === activeCategory
+  );
 
   return (
-    <div className="menu-card" style={{ position: "relative" }}>
-      {/* Accent icons in corners */}
-      <div className="menu-icon-corner menu-icon-tl">
-        <Icon />
-      </div>
-      <div className="menu-icon-corner menu-icon-tr">
-        <Icon />
-      </div>
-      <div className="menu-icon-corner menu-icon-bl">
-        <Icon />
-      </div>
-      <div className="menu-icon-corner menu-icon-br">
-        <Icon />
-      </div>
-      <div
-        style={{
-          textAlign: "center",
-          fontWeight: 700,
-          fontSize: "1.3rem",
-          color: "#b47b2b",
-          marginBottom: 4,
-          letterSpacing: 1,
-        }}
-      >
-        The Gourmet House
-      </div>
-      <h1 className="menu-title">Menu</h1>
-
-      {/* Veg Filter Buttons */}
-      <div
-        style={{
-          display: "flex",
-          gap: 8,
-          marginBottom: 16,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <button
-          onClick={setVegOnly}
-          style={{
-            padding: "8px 16px",
-            borderRadius: 8,
-            border:
-              vegFilter === true ? "2px solid #4caf50" : "2px solid #e0c9a6",
-            background: vegFilter === true ? "#4caf50" : "transparent",
-            color: vegFilter === true ? "#fff" : "#b47b2b",
-            fontSize: 14,
-            fontWeight: 600,
-            cursor: "pointer",
-            transition: "all 0.2s",
-          }}
-        >
-          Veg Only
-        </button>
-        <button
-          onClick={setNonVegOnly}
-          style={{
-            padding: "8px 16px",
-            borderRadius: 8,
-            border:
-              vegFilter === false ? "2px solid #ff6b6b" : "2px solid #e0c9a6",
-            background: vegFilter === false ? "#ff6b6b" : "transparent",
-            color: vegFilter === false ? "#fff" : "#b47b2b",
-            fontSize: 14,
-            fontWeight: 600,
-            cursor: "pointer",
-            transition: "all 0.2s",
-          }}
-        >
-          Non-Veg Only
-        </button>
-        {vegFilter !== null && (
-          <button
-            onClick={clearFilter}
-            style={{
-              padding: "8px 12px",
-              borderRadius: 8,
-              border: "2px solid #e0c9a6",
-              background: "transparent",
-              color: "#b47b2b",
-              fontSize: 16,
-              fontWeight: 600,
-              cursor: "pointer",
-              transition: "all 0.2s",
-              minWidth: 40,
-            }}
-            aria-label="Clear filter"
-          >
-            ×
-          </button>
-        )}
-      </div>
-
-      <input
-        type="text"
-        placeholder="Search by dish or category..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        style={{
-          width: "100%",
-          padding: "10px 12px",
-          marginBottom: 16,
-          borderRadius: 8,
-          border: "1.5px solid #e0c9a6",
-          fontSize: "1rem",
-          outline: "none",
-          boxSizing: "border-box",
-          background: "#fff9f3",
-        }}
-      />
-      {/* Bestsellers Section */}
-      {showBestsellers && (
-        <div className="accordion" key={BESTSELLER_ID}>
-          <div
-            className="accordion-header"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              cursor: "pointer",
-              background: "#ffe7b3",
-            }}
-            onClick={() => toggleCategory(BESTSELLER_ID)}
-          >
-            <span style={{ flex: 1, fontWeight: 700, color: "#b47b2b" }}>
-              Bestsellers ⭐
-            </span>
-            <span
-              style={{
-                marginLeft: 12,
-                fontSize: 18,
-                cursor: "pointer",
-                userSelect: "none",
-              }}
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleCategory(BESTSELLER_ID);
-              }}
-              aria-label={
-                expanded.includes(BESTSELLER_ID) ? "Collapse" : "Expand"
-              }
-            >
-              {expanded.includes(BESTSELLER_ID) ? "▲" : "▼"}
-            </span>
+    <div className="min-h-screen w-full bg-gradient-to-b from-gray-900 via-gray-800 to-black text-white overflow-x-hidden">
+      <div className="max-w-6xl mx-auto px-4 md:px-8">
+        {/* Header Section */}
+        <div className="pt-8 pb-6">
+          {/* Restaurant Name */}
+          <div className="text-center mb-2">
+            <h1 className="text-2xl font-bold text-white mb-1">
+              RestaurantName
+            </h1>
+            <p className="text-gray-300 text-sm flex items-center justify-center gap-1">
+              Explore Our Menu in 3D <span className="text-yellow-400">✨</span>
+            </p>
           </div>
-          {expanded.includes(BESTSELLER_ID) && (
-            <div className="accordion-content">
-              {bestsellers.filter(
-                (dish) =>
-                  !searchLower || dish.name.toLowerCase().includes(searchLower)
-              ).length === 0 ? (
-                <div
-                  style={{ color: "#b47b2b", textAlign: "center", padding: 8 }}
-                >
-                  No bestsellers found.
-                </div>
-              ) : (
-                bestsellers
-                  .filter(
-                    (dish) =>
-                      !searchLower ||
-                      dish.name.toLowerCase().includes(searchLower)
-                  )
-                  .map((dish, index) => (
-                    <div
-                      className="dish-list-item"
-                      key={dish.id}
-                      onClick={() => navigate(`/demo/dish/${dish.id}`)}
-                      style={{ alignItems: "center", position: "relative" }}
-                    >
-                      {showPopup && index === 0 && (
-                        <div
-                          style={{
-                            position: "absolute",
-                            top: "-40px",
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            background: "#4caf50",
-                            color: "white",
-                            padding: "8px 12px",
-                            borderRadius: "6px",
-                            fontSize: "12px",
-                            fontWeight: "600",
-                            zIndex: 10,
-                            whiteSpace: "nowrap",
-                            boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-                          }}
-                        >
-                          Click on a dish to view it in 3D
-                        </div>
-                      )}
+
+          {/* Search Bar */}
+          <div className="relative mb-4 max-w-3xl mx-auto">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+              <SearchIcon />
+            </div>
+            <input
+              type="text"
+              placeholder="Search dishes…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-11 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* Veg/Non-Veg Filter Toggle */}
+          <div className="flex gap-2 mb-6 justify-center">
+            <button
+              onClick={setVegOnly}
+              className={`flex-1 py-2 px-4 rounded-full text-sm font-medium transition-all ${
+                vegFilter === true
+                  ? "bg-green-600 text-white"
+                  : "bg-gray-800 text-gray-300 border border-gray-700"
+              } max-w-[140px]`}
+            >
+              Veg
+            </button>
+            <button
+              onClick={setNonVegOnly}
+              className={`flex-1 py-2 px-4 rounded-full text-sm font-medium transition-all ${
+                vegFilter === false
+                  ? "bg-red-600 text-white"
+                  : "bg-gray-800 text-gray-300 border border-gray-700"
+              } max-w-[140px]`}
+            >
+              Non-Veg
+            </button>
+            {vegFilter !== null && (
+              <button
+                onClick={clearFilter}
+                className="px-3 py-2 bg-gray-800 text-gray-300 border border-gray-700 rounded-full text-sm font-medium hover:bg-gray-700 transition-all"
+              >
+                ×
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Best Sellers Section */}
+        {bestsellers.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-yellow-400 mb-3">
+              Best Sellers
+            </h2>
+            <div className="overflow-x-auto scrollbar-hide">
+              <div className="flex gap-6 pb-4 min-w-max pl-4 pr-4">
+                {bestsellers.map((dish) => (
+                  <div
+                    key={dish.id}
+                    className="w-[320px] h-[340px] flex flex-col justify-between bg-gray-800 border-[1.5px] border-[#d4af37] rounded-2xl p-4 shadow-lg hover:shadow-[0_0_20px_#d4af37] transition-all duration-300 flex-shrink-0"
+                  >
+                    <div className="relative">
                       <img
                         src={dish.image}
                         alt={dish.name}
-                        style={{
-                          width: 48,
-                          height: 48,
-                          objectFit: "cover",
-                          borderRadius: 8,
-                          marginRight: 12,
-                        }}
+                        className="w-full h-32 object-cover rounded-lg"
                       />
-                      <div className="dish-info">
-                        <div className="dish-name">{dish.name}</div>
-                        <div className="dish-desc">{dish.description}</div>
-                      </div>
-                      <div className="dish-price">₹{dish.price.toFixed(2)}</div>
                     </div>
-                  ))
-              )}
+                    <div className="flex-1 flex flex-col justify-between">
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2">
+                          {dish.name}
+                        </h3>
+                        <p className="text-sm text-gray-300 mb-2 line-clamp-2">
+                          {dish.description}
+                        </p>
+                        <div className="text-lg font-bold text-yellow-400">
+                          ₹{dish.price}
+                        </div>
+                      </div>
+                      <div className="mt-auto">
+                        <button
+                          onClick={() => navigate(`/demo/dish/${dish.id}`)}
+                          className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-semibold rounded-lg px-4 py-2 text-sm flex items-center justify-center gap-2 transition-all duration-200"
+                        >
+                          <CubeIcon />
+                          View in 3D
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Categories Section */}
+        <div className="mb-8">
+          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide pl-4 pr-4">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeCategory === category.id
+                    ? "bg-yellow-600 text-white"
+                    : "bg-gray-800 text-gray-300 border border-gray-700"
+                }`}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Dish List Section */}
+        <div className="pb-8">
+          {categoryDishes.length === 0 ? (
+            <div className="text-center py-8">
+              <p className="text-gray-400">No dishes found in this category.</p>
+            </div>
+          ) : (
+            <div>
+              <h2 className="text-xl font-bold text-yellow-400 mb-3">
+                {categories.find((cat) => cat.id === activeCategory)?.name ||
+                  "Dishes"}
+              </h2>
+              <div className="grid grid-cols-2 gap-6">
+                {categoryDishes.map((dish) => (
+                  <div
+                    key={dish.id}
+                    className="h-[380px] flex flex-col justify-between bg-gray-800 border-[1.5px] border-[#d4af37] rounded-2xl p-5 shadow-lg hover:shadow-[0_0_24px_#d4af37] transition-all duration-300"
+                  >
+                    <div className="relative">
+                      <img
+                        src={dish.image}
+                        alt={dish.name}
+                        className="w-full h-40 object-cover rounded-lg"
+                      />
+                    </div>
+                    <div className="flex-1 flex flex-col justify-between">
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2">
+                          {dish.name}
+                        </h3>
+                        <p className="text-sm text-gray-300 mb-2 line-clamp-2">
+                          {dish.description}
+                        </p>
+                        <div className="text-lg font-bold text-yellow-400">
+                          ₹{dish.price}
+                        </div>
+                      </div>
+                      <div className="mt-auto">
+                        <button
+                          onClick={() => navigate(`/demo/dish/${dish.id}`)}
+                          className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-semibold rounded-lg px-4 py-2 text-sm flex items-center justify-center gap-2 transition-all duration-200"
+                        >
+                          <CubeIcon />
+                          View in 3D
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>
-      )}
-      {/* Category Accordions */}
-      {filteredCategories.length === 0 ? (
-        <div style={{ textAlign: "center", color: "#b47b2b", marginTop: 24 }}>
-          No results found.
-        </div>
-      ) : (
-        filteredCategories.map((cat) => (
-          <div className="accordion" key={cat.id}>
-            <div
-              className="accordion-header"
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
-              onClick={() => navigate(`/demo/category/${cat.id}`)}
-            >
-              <span style={{ flex: 1 }}>{cat.name}</span>
-              <span
-                style={{
-                  marginLeft: 12,
-                  fontSize: 18,
-                  cursor: "pointer",
-                  userSelect: "none",
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleCategory(cat.id);
-                }}
-                aria-label={expanded.includes(cat.id) ? "Collapse" : "Expand"}
-              >
-                {expanded.includes(cat.id) ? "▲" : "▼"}
-              </span>
-            </div>
-            {expanded.includes(cat.id) && (
-              <div className="accordion-content">
-                {filteredDishes.filter((d) => d.category === cat.id).length ===
-                0 ? (
-                  <div
-                    style={{
-                      color: "#b47b2b",
-                      textAlign: "center",
-                      padding: 8,
-                    }}
-                  >
-                    No dishes found.
-                  </div>
-                ) : (
-                  filteredDishes
-                    .filter((d) => d.category === cat.id)
-                    .map((dish) => (
-                      <div
-                        className="dish-list-item"
-                        key={dish.id}
-                        onClick={() => navigate(`/demo/dish/${dish.id}`)}
-                        style={{ alignItems: "center" }}
-                      >
-                        <img
-                          src={dish.image}
-                          alt={dish.name}
-                          style={{
-                            width: 48,
-                            height: 48,
-                            objectFit: "cover",
-                            borderRadius: 8,
-                            marginRight: 12,
-                          }}
-                        />
-                        <div className="dish-info">
-                          <div className="dish-name">{dish.name}</div>
-                          <div className="dish-desc">{dish.description}</div>
-                        </div>
-                        <div className="dish-price">
-                          ₹{dish.price.toFixed(2)}
-                        </div>
-                      </div>
-                    ))
-                )}
-              </div>
-            )}
-          </div>
-        ))
-      )}
+      </div>
     </div>
   );
 };

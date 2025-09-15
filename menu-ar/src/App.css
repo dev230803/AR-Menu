@@ -3,8 +3,16 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: url('/public/background/bg.jpg') repeat center center fixed;
-  background-size: cover;
+  background: #111827;
+}
+
+/* Hide scrollbars for horizontal scrolling */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
 }
 
 .menu-card {
@@ -131,4 +139,40 @@ body {
     width: 32px;
     height: 32px;
   }
+}
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center everything */
+  padding: 20px;
+  background: linear-gradient(135deg, #1a1a1a, #0d0d0d); /* Premium dark gradient */
+  min-height: 100vh;
+  color: #fff;
+}
+
+.best-sellers {
+  display: flex;
+  gap: 20px; /* Space between cards */
+  overflow-x: auto; /* Enable horizontal scroll */
+  padding: 20px 0;
+  scroll-behavior: smooth;
+}
+
+.best-sellers::-webkit-scrollbar {
+  display: none; /* Hide ugly scrollbar */
+}
+
+.card {
+  flex: 0 0 220px; /* Fix card width */
+  background: #111;
+  border: 1px solid #d4af37; /* Golden border */
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); /* Golden glow */
 }
