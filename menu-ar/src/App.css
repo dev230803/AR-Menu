@@ -3,8 +3,18 @@
 body {
   margin: 0;
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: transparent;
+}
+
+/* Apply background only to menu pages */
+body.menu-page {
   background: url('/public/background/bg.jpg') repeat center center fixed;
   background-size: cover;
+}
+
+/* Ensure landing page has no background */
+body.landing-page {
+  background: transparent !important;
 }
 
 /* Enhanced Animations */

@@ -255,7 +255,11 @@ const MenuHome = () => {
                   !searchLower || dish.name.toLowerCase().includes(searchLower)
               ).length === 0 ? (
                 <div
-                  style={{ color: "#b47b2b", textAlign: "center", padding: 8 }}
+                  style={{
+                    color: "#b47b2b",
+                    textAlign: "center",
+                    padding: 8,
+                  }}
                 >
                   No bestsellers found.
                 </div>

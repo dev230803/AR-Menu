@@ -13,7 +13,7 @@ import ScrollStackSection from "./ScrollStackSection";
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen landing-page">
       <Navbar />
       <div className="pt-16">
         {" "}
