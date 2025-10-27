@@ -3,30 +3,27 @@ import React from "react";
 const TestimonialsSection = () => {
   const testimonials = [
     {
-      name: "Sarah Chen",
-      role: "Owner, Fusion Bistro",
-      image:
-        "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+      name: "Broadwalk Customer",
+      role: "Broadwalk by Flamboyant",
+      image: "🏖️",
       quote:
-        "OrderIn3D transformed our restaurant experience. Our customers are amazed by the 3D menu, and we've seen a 35% increase in average order value.",
+        "The 3D menu at Boardwalk is incredibly useful! It allows us to see the actual product we're ordering virtually on the table. This unique feature helps us gauge the quality and presentation of the food, enhancing our dining experience. It's a fun and engaging way to order, and I believe it will greatly boost customer satisfaction. Highly recommended!",
       rating: 5,
     },
     {
-      name: "Marcus Rodriguez",
-      role: "Chef, La Casa Italiana",
-      image:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      name: "Epitome Customer",
+      role: "Epitome",
+      image: "✨",
       quote:
-        "The AR experience is incredible. Customers can now see exactly what they're ordering, and it's eliminated the 'what does this look like?' questions.",
+        "3D menu is a fantastic tech initiative in the dining experience! Seeing the food come alive on the table before ordering was interactive and enjoyable. As a first-time user, I found it engaging and a glimpse into the future of dining. This tech initiative has great potential, and it's already proving to be a useful addition",
       rating: 5,
     },
     {
-      name: "Emily Thompson",
-      role: "Manager, Urban Grill",
-      image:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+      name: "Sante Spa Customer",
+      role: "Sante Spa",
+      image: "🧘",
       quote:
-        "Setup was incredibly easy. Within an hour, we had our entire menu in 3D. The customer engagement has been phenomenal.",
+        "It is an amazing addition to the dining experience! Seeing the food in 3D made it easier to choose and more tempting. As a foodie, I found it incredibly helpful and enjoyable.",
       rating: 5,
     },
   ];
@@ -40,11 +37,11 @@ const TestimonialsSection = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            What Restaurant Owners Say
+            What Customers Say About 3D Menu?
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Join hundreds of satisfied restaurant owners who have transformed
-            their business with OrderIn3D
+            Real feedback from real customers who have experienced the future of
+            dining
           </p>
         </div>
 
@@ -74,11 +71,9 @@ const TestimonialsSection = () => {
 
                 {/* Author */}
                 <div className="flex items-center">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover mr-4"
-                  />
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-xl mr-4">
+                    {testimonial.image}
+                  </div>
                   <div>
                     <div className="font-semibold text-gray-900">
                       {testimonial.name}

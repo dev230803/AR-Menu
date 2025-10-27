@@ -1,111 +1,114 @@
 import React from "react";
-
+import { Link, useNavigate } from "react-router-dom";
+import landing_page_image from "../images/landing_page_image_4.png";
 const HeroSection = () => {
+  const navigate = useNavigate();
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const goToMenu = () => {
+    navigate("/demo");
+  };
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Gradient Background */}
-      <div className="absolute inset-0 gradient-bg"></div>
+    <section
+      className="relative min-h-screen flex items-center overflow-hidden pt-4"
+      style={{
+        backgroundImage: "linear-gradient(to bottom left,#000080,black 70%)",
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left Side - Text Content */}
+          <div className="space-y-4">
+            {/* Main Headline */}
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold leading-tight text-white">
+              Where Menus Come ALIVE
+            </h1>
 
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full animate-float"></div>
-      <div
-        className="absolute top-40 right-20 w-16 h-16 bg-white/10 rounded-full animate-float"
-        style={{ animationDelay: "2s" }}
-      ></div>
-      <div
-        className="absolute bottom-40 left-20 w-12 h-12 bg-white/10 rounded-full animate-float"
-        style={{ animationDelay: "4s" }}
-      ></div>
-
-      {/* Main Content */}
-      <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
-        {/* Logo/Brand */}
-        <div className="mb-8">
-          <div className="inline-flex items-center justify-center w-24 h-24 bg-white/20 backdrop-blur-sm rounded-full mb-6">
-            <span className="text-4xl">🍽️</span>
-          </div>
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            Transform Your Restaurant with
-            <span className="block bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
-              3D Menus
-            </span>
-          </h1>
-        </div>
-
-        {/* Subheading */}
-        <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-4xl mx-auto leading-relaxed">
-          Boost sales by 40% and deliver a premium dining experience that sets
-          your restaurant apart. Let customers explore your dishes in stunning
-          3D and see them come to life in their environment.
-        </p>
-
-        {/* Stats */}
-        <div className="flex flex-wrap justify-center gap-8 mb-12">
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-white mb-2">
-              40%
-            </div>
-            <div className="text-white/80">Increase in Sales</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-white mb-2">
-              3x
-            </div>
-            <div className="text-white/80">Customer Engagement</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-white mb-2">
-              {/* 24/7 */}
-              Real-time
-            </div>
-            {/* <div className="text-white/80">Menu Available</div> */}
-            <div className="text-white/80">Menu Updates</div>
-          </div>
-        </div>
-
-        {/* Trust Indicators */}
-        <div className="flex flex-wrap justify-center items-center gap-6 text-white/70 text-sm">
-          <div className="flex items-center gap-2">
-            <svg
-              className="w-5 h-5 text-green-400"
-              fill="currentColor"
-              viewBox="0 0 20 20"
+            {/* Subheading */}
+            <p
+              className="text-white leading-relaxed font-light"
+              style={{ fontSize: "24px" }}
             >
-              <path
-                fillRule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <span>No App Download Required</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <svg
-              className="w-5 h-5 text-green-400"
-              fill="currentColor"
-              viewBox="0 0 20 20"
+              {/* Bring your food to life with immersive 3D menus—because taste
+              begins with the eyes. */}
+              Boost engagement and sales by letting customers explore your
+              dishes from every angle.
+            </p>
+
+            {/* Additional Subheading */}
+            <p
+              className="leading-relaxed font-light"
+              style={{ fontSize: "22px" }}
             >
-              <path
-                fillRule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <span>Works on All Devices</span>
+              <span
+                className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent font-semibold"
+                style={{
+                  background:
+                    "linear-gradient(90deg, #60a5fa, #a855f7, #ec4899)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                Happier customers. Faster decisions. Higher revenue. All with
+                interactive 3D menus.
+              </span>
+            </p>
+
+            {/* CTA Buttons - Side by Side */}
+            <div className="flex flex-col sm:flex-row gap-6 pt-2">
+              {/* Contact Us Button */}
+              <button
+                onClick={scrollToContact}
+                className="flex-1 max-w-sm h-16 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center text-xl font-semibold text-gray-800"
+              >
+                Get a Free Demo
+              </button>
+
+              {/* See Demo Button */}
+              <button
+                onClick={goToMenu}
+                className="flex-1 max-w-sm h-16 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center text-xl font-semibold text-gray-800 gap-3"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                Try the 3D Experience
+              </button>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <svg
-              className="w-5 h-5 text-green-400"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clipRule="evenodd"
+
+          {/* Right Side - Image */}
+          <div className="relative flex justify-center">
+            <div className="relative z-10">
+              <img
+                src={landing_page_image}
+                alt="3D Menu Experience"
+                className="w-full h-auto max-w-md mx-auto"
               />
-            </svg>
-            <span>Setup in Minutes</span>
+            </div>
+
+            {/* Floating Elements for Premium Feel */}
+            <div className="absolute -top-8 -right-8 w-16 h-16 bg-blue-400/30 rounded-full animate-float blur-sm"></div>
+            <div
+              className="absolute -bottom-8 -left-8 w-12 h-12 bg-purple-400/30 rounded-full animate-float blur-sm"
+              style={{ animationDelay: "2s" }}
+            ></div>
+            <div
+              className="absolute top-1/2 -right-12 w-8 h-8 bg-green-400/30 rounded-full animate-float blur-sm"
+              style={{ animationDelay: "4s" }}
+            ></div>
           </div>
         </div>
       </div>

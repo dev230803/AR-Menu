@@ -3,45 +3,45 @@ import React from "react";
 const BenefitsSection = () => {
   const benefits = [
     {
-      icon: "📈",
-      title: "Increase Sales by 40%",
+      icon: "🎯",
+      title: "Engage Instantly",
       description:
-        "Customers spend more when they can visualize dishes in 3D and AR, leading to higher average order values.",
+        "Customers can touch, zoom, and rotate dishes for a full 3D experience that captivates and delights.",
+      color: "from-blue-500 to-cyan-500",
+    },
+    {
+      icon: "⚡",
+      title: "Simplify Ordering",
+      description:
+        "Clear visuals make decisions quicker and more confident, reducing order errors and wait times.",
       color: "from-green-500 to-emerald-500",
     },
     {
-      icon: "🎯",
-      title: "Boost Customer Engagement",
+      icon: "📈",
+      title: "Drive Sales Up",
       description:
-        "Interactive 3D menus keep customers engaged longer, reducing wait time complaints and increasing satisfaction.",
-      color: "from-blue-500 to-indigo-500",
-    },
-    {
-      icon: "⭐",
-      title: "Premium Dining Experience",
-      description:
-        "Stand out from competitors with cutting-edge technology that positions your restaurant as innovative and modern.",
+        "Highlight specials with menu engineering and make your seasonal or limited-time offers irresistible.",
       color: "from-purple-500 to-pink-500",
     },
     {
-      icon: "💰",
-      title: "Reduce Operational Costs",
+      icon: "✨",
+      title: "Impress Instantly",
       description:
-        "Eliminate printing costs, reduce menu updates, and streamline ordering with digital menus that update instantly.",
+        "Create a buzz—guests love to share their dining experience and your innovative technology.",
       color: "from-orange-500 to-red-500",
     },
     {
-      icon: "🌍",
-      title: "Global Accessibility",
+      icon: "👥",
+      title: "Optimise Staff",
       description:
-        "Reach international customers with multilingual support and universal device compatibility.",
+        "Free up your staff from explaining dishes repeatedly and focus on delivering exceptional service.",
       color: "from-teal-500 to-cyan-500",
     },
     {
-      icon: "📊",
-      title: "Data-Driven Insights",
+      icon: "🏆",
+      title: "Competitive Edge",
       description:
-        "Track popular dishes, customer preferences, and peak ordering times to optimize your menu and operations.",
+        "Stand out from competitors with innovative technology that positions you as a forward-thinking restaurant.",
       color: "from-indigo-500 to-purple-500",
     },
   ];
@@ -52,11 +52,11 @@ const BenefitsSection = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Why Restaurant Owners Choose OrderIn3D
+            Why 3D Menu?
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Join hundreds of successful restaurants that have transformed their
-            business with our innovative 3D and AR menu technology.
+            Transform your restaurant experience with cutting-edge technology
+            that delights customers and drives results.
           </p>
         </div>
 

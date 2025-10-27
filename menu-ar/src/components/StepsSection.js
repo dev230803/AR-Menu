@@ -1,30 +1,95 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { Carousel } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 
 const StepsSection = () => {
-  const steps = [
+  const [activeIndex, setActiveIndex] = useState(0);
+  const videoRefs = useRef([]);
+  const playAttemptedRef = useRef(false);
+
+  // Safe video play function with error handling
+  const playVideoSafely = async (videoElement) => {
+    if (!videoElement) return;
+
+    try {
+      // Check if play is allowed
+      const playPromise = videoElement.play();
+
+      if (playPromise !== undefined) {
+        await playPromise
+          .then(() => {
+            // Video started playing successfully
+            console.log("Video autoplayed successfully");
+          })
+          .catch((error) => {
+            // Autoplay was prevented
+            console.log("Autoplay prevented:", error.name);
+            // Don't throw error - this is expected behavior
+          });
+      }
+    } catch (error) {
+      // Silently handle any errors without showing to user
+      console.log("Video play error handled silently:", error.name);
+    }
+  };
+
+  // Reset video to beginning when it becomes active
+  useEffect(() => {
+    const currentVideo = videoRefs.current[activeIndex];
+
+    if (currentVideo && !currentVideo.paused) {
+      // Only play if video is not already playing
+      return;
+    }
+
+    if (currentVideo) {
+      currentVideo.currentTime = 0;
+
+      // Only attempt autoplay once per video
+      if (!playAttemptedRef.current) {
+        playVideoSafely(currentVideo);
+        playAttemptedRef.current = true;
+
+        // Reset flag after a delay
+        setTimeout(() => {
+          playAttemptedRef.current = false;
+        }, 100);
+      }
+    }
+  }, [activeIndex]);
+
+  const videos = [
     {
-      number: "01",
-      title: "Scan QR Code",
+      id: 1,
+      title: "Walk into the Future of Dining",
+      src: "/carousel/1 Walk into the future of Dining.mp4",
       description:
-        "Customers simply scan the QR code placed on your tables or menu cards",
-      icon: "📱",
-      color: "from-blue-500 to-cyan-500",
+        "Experience the next generation of dining with immersive 3D technology.",
     },
     {
-      number: "02",
-      title: "View 3D Menu",
+      id: 2,
+      title: "Scan to Discover Your Meal in 3D",
+      src: "/carousel/2 Scan to Discover Your Meal in 3D.mp4",
       description:
-        "Explore your dishes in stunning 3D with detailed descriptions and pricing",
-      icon: "🎯",
-      color: "from-purple-500 to-pink-500",
+        "Simply scan the QR code to unlock a world of 3D food visualization.",
     },
     {
-      number: "03",
-      title: "See in AR",
-      description:
-        "Experience dishes in augmented reality right on their table",
-      icon: "✨",
-      color: "from-orange-500 to-red-500",
+      id: 3,
+      title: "Browse the Digital Menu Instantly",
+      src: "/carousel/3 Browse the Digital Menu Instantly.mp4",
+      description: "Navigate through our interactive digital menu with ease.",
+    },
+    {
+      id: 4,
+      title: "Know Your Dish Before You Order",
+      src: "/carousel/4 Know Your Dish Before You Order.mp4",
+      description: "See every detail of your meal before making your choice.",
+    },
+    {
+      id: 5,
+      title: "Experience Your Meal Come to Life",
+      src: "/carousel/5 Experience Your Meal Come to Life.mp4",
+      description: "Watch as your food comes to life in stunning 3D detail.",
     },
   ];
 
@@ -33,77 +98,60 @@ const StepsSection = () => {
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            How It Works
+          <h2 className="text-4xl md:text-5xl text-gray-900 mb-6">
+            Redefine the Way Your Guests Dine — in 5 Simple Steps
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Transform your menu experience in just three simple steps. No
-            complex setup, no app downloads - just pure innovation.
+            Experience the future of dining through our interactive video
+            demonstrations. See how easy it is to transform your restaurant
+            experience.
           </p>
         </div>
 
-        {/* Steps */}
-        <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-          {steps.map((step, index) => (
-            <div key={index} className="relative">
-              {/* Step Card */}
-              <div className="step-card bg-white rounded-2xl p-8 shadow-lg border border-gray-100 text-center h-full">
-                {/* Step Number */}
-                <div
-                  className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${step.color} text-white text-2xl font-bold mb-6`}
-                >
-                  {step.number}
-                </div>
-
-                {/* Icon */}
-                <div
-                  className="text-6xl mb-6 animate-float"
-                  style={{ animationDelay: `${index * 0.5}s` }}
-                >
-                  {step.icon}
-                </div>
-
-                {/* Title */}
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  {step.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-gray-600 leading-relaxed">
-                  {step.description}
-                </p>
-              </div>
-
-              {/* Connecting Arrow */}
-              {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-1/2 -right-6 transform -translate-y-1/2 z-10">
-                  <svg
-                    className="w-12 h-12 text-gray-300"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+        {/* Video Carousel */}
+        <div className="max-w-4xl mx-auto">
+          <Carousel
+            activeIndex={activeIndex}
+            onSelect={setActiveIndex}
+            interval={2500}
+            fade={true}
+            indicators={true}
+            controls={false}
+            autoPlay={true}
+            pause={false}
+            className="rounded-2xl overflow-hidden shadow-2xl"
+          >
+            {videos.map((video, index) => (
+              <Carousel.Item key={video.id}>
+                <div className="relative bg-black min-h-[400px] flex items-center justify-center">
+                  <video
+                    ref={(el) => (videoRefs.current[index] = el)}
+                    className="w-full h-auto max-h-96 object-cover"
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    onError={(e) => {
+                      console.log("Video load error handled silently");
+                      // Prevent error from propagating
+                      e.preventDefault();
+                    }}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+                    <source src={video.src} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <div className="inline-flex items-center gap-3 bg-white rounded-full px-6 py-3 shadow-lg">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-gray-700 font-medium">
-              Ready to get started?
-            </span>
-          </div>
+                  {/* Text Overlay */}
+                  {/* <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6">
+                    <h3 className="text-2xl font-bold text-white mb-2">
+                      {video.title}
+                    </h3>
+                    <p className="text-gray-200">{video.description}</p>
+                  </div> */}
+                </div>
+              </Carousel.Item>
+            ))}
+          </Carousel>
         </div>
       </div>
     </section>

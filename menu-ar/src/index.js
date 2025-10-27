@@ -5,6 +5,31 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 
+// Suppress common video autoplay errors that are expected behavior
+const suppressVideoErrors = () => {
+  const originalError = console.error;
+  console.error = (...args) => {
+    // Suppress video-related autoplay errors
+    const errorMessage = args[0]?.message || args[0]?.toString() || "";
+
+    if (
+      errorMessage.includes("play() request was interrupted") ||
+      errorMessage.includes("NotAllowedError") ||
+      errorMessage.includes("video-only background media") ||
+      errorMessage.includes("power")
+    ) {
+      // Silently ignore these expected errors
+      return;
+    }
+
+    // Pass through other errors
+    originalError.apply(console, args);
+  };
+};
+
+// Apply error suppression
+suppressVideoErrors();
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
