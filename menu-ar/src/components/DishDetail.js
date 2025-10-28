@@ -178,6 +178,7 @@ const DishDetail = () => {
             </button>
             <model-viewer
               src={dish.model}
+              ios-src={dish.modelIOS}
               ar
               ar-modes="webxr scene-viewer quick-look"
               camera-controls
@@ -190,7 +191,6 @@ const DishDetail = () => {
                 background: "#f7f7f7",
                 borderRadius: 8,
               }}
-              ios-src={dish.model}
               alt={`3D model of ${dish.name}`}
               shadow-intensity="1"
               exposure="1.1"
