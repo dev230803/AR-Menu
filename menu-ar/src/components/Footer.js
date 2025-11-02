@@ -1,5 +1,5 @@
 import React from "react";
-
+import final_logo from "../images/final_logo.png";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -9,13 +9,16 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg font-bold">O</span>
+            <div className="flex items-center">
+              <div
+                className="flex items-center space-x-2 cursor-pointer"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              >
+                <div className="w-12 h-12 flex items-center justify-center">
+                  <img src={final_logo} alt="OrderIn3D" />
+                </div>
+                <span className="text-xl ">OrderIn3D.store</span>
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                OrderIn3D
-              </span>
             </div>
             <p className="text-gray-400 mb-6 max-w-md">
               Transform your restaurant with cutting-edge 3D and AR menu
@@ -25,7 +28,8 @@ const Footer = () => {
             <div className="flex space-x-4">
               {/* LinkedIn */}
               <a
-                href="#"
+                href="https://www.linkedin.com/company/108404333/admin/?lipi=urn%3Ali%3Apage%3Ad_flagship3_feed%3BLcZvXKEZSkOoECqcSR4xAw%3D%3D"
+                target="_blank"
                 className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors duration-200"
               >
                 <svg
@@ -39,7 +43,8 @@ const Footer = () => {
 
               {/* Instagram */}
               <a
-                href="#"
+                href="https://www.instagram.com/orderin3d"
+                target="_blank"
                 className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-pink-600 transition-colors duration-200"
               >
                 <svg
@@ -48,20 +53,6 @@ const Footer = () => {
                   viewBox="0 0 24 24"
                 >
                   <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.198 14.895 3.708 13.744 3.708 12.447s.49-2.448 1.297-3.323c.875-.807 2.026-1.297 3.323-1.297s2.448.49 3.323 1.297c.807.875 1.297 2.026 1.297 3.323s-.49 2.448-1.297 3.323c-.875.807-2.026 1.297-3.323 1.297zm7.718-1.297c-.875.807-2.026 1.297-3.323 1.297s-2.448-.49-3.323-1.297c-.807-.875-1.297-2.026-1.297-3.323s.49-2.448 1.297-3.323c.875-.807 2.026-1.297 3.323-1.297s2.448.49 3.323 1.297c.807.875 1.297 2.026 1.297 3.323s-.49 2.448-1.297 3.323z" />
-                </svg>
-              </a>
-
-              {/* Twitter */}
-              <a
-                href="#"
-                className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-blue-400 transition-colors duration-200"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
                 </svg>
               </a>
             </div>
@@ -95,7 +86,7 @@ const Footer = () => {
                   Features
                 </button>
               </li>
-              <li>
+              {/* <li>
                 <button
                   onClick={() =>
                     document
@@ -106,7 +97,7 @@ const Footer = () => {
                 >
                   Pricing
                 </button>
-              </li>
+              </li> */}
               <li>
                 <button
                   onClick={() =>
