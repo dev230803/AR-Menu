@@ -26,7 +26,7 @@ export const dishes = [
     veg: true,
     image:
       "https://myfoodstory.com/wp-content/uploads/2022/04/Classic-Cold-Coffee-Cafe-Style-1.jpg",
-    model: require("./models/apple_plate.glb"),
+    model: require("./models/Untitled.glb"),
     modelIOS: require("./models/apple_plate.usdz"),
   },
   {
