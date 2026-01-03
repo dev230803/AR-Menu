@@ -26,7 +26,7 @@ export const dishes = [
     veg: true,
     image:
       "https://myfoodstory.com/wp-content/uploads/2022/04/Classic-Cold-Coffee-Cafe-Style-1.jpg",
-    model: require("./models/Untitled.glb"),
+    model: require("./models/apple_plate.glb"),
     modelIOS: require("./models/apple_plate.usdz"),
   },
   {
@@ -102,7 +102,7 @@ export const dishes = [
     veg: true,
     image:
       "https://d1mxd7n691o8sz.cloudfront.net/static/recipe/recipe/2023-12/Vegetable-Spring-Rolls-2-1-906001560ca545c8bc72baf473f230b4_thumbnail_170.jpeg",
-    model: require("./models/spring_roll.glb"),
+    model: require("./models/spring_roll_2.glb"),
     modelIOS: require("./models/spring_roll.usdz"),
   },
   {

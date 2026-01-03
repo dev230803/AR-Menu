@@ -5,12 +5,11 @@ import { Pie } from "react-chartjs-2";
 import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 import "../App.css";
 import "@google/model-viewer";
-
+import { launchAR } from "../ar/arLauncher";
 Chart.register(ArcElement, Tooltip, Legend);
 
 const DishDetail = () => {
   const { dishId } = useParams();
-  const [show3D, setShow3D] = useState(false);
   const dish = dishes.find((d) => d.id === dishId);
   if (!dish) return <div>Dish not found</div>;
   const nutrition = dish.nutrition;
@@ -77,6 +76,34 @@ const DishDetail = () => {
             boxShadow: "0 2px 8px rgba(0,0,0,0.07)",
           }}
         />
+        <div
+          style={{
+            width: "100%",
+            maxWidth: 360,
+            margin: "16px auto",
+            borderRadius: 12,
+            overflow: "hidden",
+            background: "#f5f5f5",
+          }}
+        >
+          <model-viewer
+            src={dish.model}
+            ios-src={dish.modelIOS}
+            camera-controls
+            auto-rotate
+            loading="lazy"
+            rotation-per-second="30deg"
+            shadow-intensity="1"
+            exposure="1"
+            ar={false} // ⛔ PREVIEW ONLY
+            style={{
+              width: "100%",
+              height: 320,
+              background: "#f5f5f5",
+            }}
+            alt={`3D preview of ${dish.name}`}
+          />
+        </div>
         <button
           className="ar-btn"
           style={{
@@ -96,7 +123,13 @@ const DishDetail = () => {
             transition: "background 0.2s",
             alignSelf: "center",
           }}
-          onClick={() => setShow3D(true)}
+          onClick={() => {
+            if (!dish.model || !dish.modelIOS) {
+              alert("AR model not available for this dish");
+              return;
+            }
+            launchAR({ glb: dish.model, usdz: dish.modelIOS, dishId: dish.id });
+          }}
         >
           View in 3D
         </button>
@@ -128,86 +161,6 @@ const DishDetail = () => {
       >
         Quantity served: {dish.quantity}
       </div>
-      {/* 3D/AR Modal */}
-      {show3D && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            background: "rgba(0,0,0,0.7)",
-            zIndex: 1000,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              background: "#fff",
-              borderRadius: 12,
-              padding: 12,
-              maxWidth: 400,
-              width: "95vw",
-              maxHeight: "90vh",
-              boxShadow: "0 4px 24px rgba(0,0,0,0.18)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              position: "relative",
-            }}
-          >
-            <button
-              onClick={() => setShow3D(false)}
-              style={{
-                position: "absolute",
-                top: 8,
-                right: 12,
-                background: "transparent",
-                border: "none",
-                fontSize: 28,
-                color: "#333",
-                cursor: "pointer",
-                zIndex: 2,
-              }}
-              aria-label="Close 3D viewer"
-            >
-              ×
-            </button>
-            <model-viewer
-              src={dish.model}
-              ios-src={dish.modelIOS}
-              ar
-              ar-modes="webxr scene-viewer quick-look"
-              camera-controls
-              auto-rotate
-              style={{
-                width: "100%",
-                height: "60vw",
-                maxWidth: 350,
-                maxHeight: 350,
-                background: "#f7f7f7",
-                borderRadius: 8,
-              }}
-              alt={`3D model of ${dish.name}`}
-              shadow-intensity="1"
-              exposure="1.1"
-            ></model-viewer>
-            <div
-              style={{
-                marginTop: 8,
-                color: "#4caf50",
-                fontWeight: 600,
-                fontSize: 16,
-              }}
-            >
-              Tap the AR icon to view in your space!
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
