@@ -1,7 +1,10 @@
 // Sample menu data for the AR menu app
-
-const dishModel = require("./models/apple_plate.glb");
+import sundaeImg from "../src/images/ice_cream_sundae.png";
+import waffleImg from "../src/images/belgian_waffle.png";
+import sandwichImg from "../src/images/ice_cream_sandwich.png";
+const dishModel = require("./models/apple_plate-compressed.glb");
 const dishModelIOS = require("./models/apple_plate.usdz");
+
 
 export const categories = [
   { id: "starters", name: "Starters" },
@@ -13,6 +16,36 @@ export const categories = [
 ];
 
 export const dishes = [
+  {
+    id: "spring-rolls",
+    name: "Spring Rolls",
+    category: "starters",
+    price: 149,
+    description: "Crispy rolls stuffed with veggies.",
+    nutrition: { protein: 3, carbs: 15, fat: 5 },
+    quantity: "4 pieces",
+    bestseller: true,
+    veg: true,
+    image:
+      "https://d1mxd7n691o8sz.cloudfront.net/static/recipe/recipe/2023-12/Vegetable-Spring-Rolls-2-1-906001560ca545c8bc72baf473f230b4_thumbnail_170.jpeg",
+    model: require("./models/spring_roll2-compressed.glb"),
+    modelIOS: require("./models/spring_roll2.usdz"),
+  },
+  {
+    id: "lemonade",
+    name: "Lemonade",
+    category: "beverages",
+    price: 49,
+    description: "Freshly squeezed lemonade.",
+    nutrition: { protein: 0, carbs: 25, fat: 0 },
+    quantity: "1 glass",
+    bestseller: false,
+    veg: true,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3CxYonC8qV5pNC6NDv66GJu7zocUkRnPCyw&s",
+    model: dishModel,
+    modelIOS: dishModelIOS,
+  },
   {
     id: "classic-cold-coffee",
     name: "Classic Cold Coffee",
@@ -26,7 +59,7 @@ export const dishes = [
     veg: true,
     image:
       "https://myfoodstory.com/wp-content/uploads/2022/04/Classic-Cold-Coffee-Cafe-Style-1.jpg",
-    model: require("./models/apple_plate.glb"),
+    model: require("./models/apple_plate-compressed.glb"),
     modelIOS: require("./models/apple_plate.usdz"),
   },
   {
@@ -44,6 +77,48 @@ export const dishes = [
       "https://b.zmtcdn.com/data/dish_photos/eb2/c12a3adf5a68fc847411c4047919beb2.jpeg?fit=around|130:130&crop=130:130;*,*",
     model: require("./models/salad_plate2.glb"),
     modelIOS: require("./models/salad_plate2.usdz"),
+  },
+  {
+    id: "icecream_sundae",
+    name: "Ice Cream Sundae",
+    category: "desserts",
+    price: 249,
+    description: "Delicious ice cream sundae topped with chocolate syrup, nuts, and whipped cream.",
+    nutrition: { protein: 5, carbs: 35, fat: 14 },
+    quantity: "serves 2",
+    bestseller: true,
+    veg: true,
+    image: sundaeImg,
+    model: require("./models/ice_cream_sundae.glb"),
+    modelIOS: require("./models/ice_cream_sundae.usdz"),
+  },
+  {
+    id: "belgian_waffle",
+    name: "Belgian Waffle",
+    category: "desserts",
+    price: 199,
+    description: "Crispy golden waffles topped with rich chocolate sauce and a scoop of creamy vanilla ice cream.",
+    nutrition: { protein: 7, carbs: 40, fat: 16 },
+    quantity: "Serves 1",
+    bestseller: true,
+    veg: true,
+    image: waffleImg,
+    model: require("./models/belgian_waffle-compressed.glb"),
+    modelIOS: require("./models/belgian_waffle.usdz"),
+  },
+  {
+    id: "icecream_sandwich",
+    name: "Ice Cream Sandwich",
+    category: "desserts",
+    price: 199,
+    description: "Crunchy waffle sandwich layered with creamy ice cream, chocolate coating, and colorful sprinkles.",
+    nutrition: { protein: 6, carbs: 38, fat: 15 },
+    quantity: "Serves 1",
+    bestseller: false,
+    veg: true,
+    image: sandwichImg,
+    model: require("./models/ice_cream_sandwich-compressed.glb"),
+    modelIOS: require("./models/ice_cream_sandwich-compressed.usdz"),
   },
   {
     id: "cheesecake",
@@ -102,7 +177,7 @@ export const dishes = [
     veg: true,
     image:
       "https://d1mxd7n691o8sz.cloudfront.net/static/recipe/recipe/2023-12/Vegetable-Spring-Rolls-2-1-906001560ca545c8bc72baf473f230b4_thumbnail_170.jpeg",
-    model: require("./models/spring_roll2.glb"),
+    model: require("./models/spring_roll2-compressed.glb"),
     modelIOS: require("./models/spring_roll2.usdz"),
   },
   {
@@ -127,7 +202,7 @@ export const dishes = [
     price: 249,
     description: "Chilled mango smoothie with yogurt.",
     nutrition: { protein: 4, carbs: 30, fat: 2 },
-    quantity: "1 glass",
+    quantity: "750 ml",
     bestseller: true,
     veg: true,
     image:
@@ -238,7 +313,7 @@ export const dishes = [
     veg: true,
     image:
       "data:image/jpeg;base64,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",
-    model: require("./models/apple_plate.glb"),
+    model: require("./models/apple_plate-compressed.glb"),
     modelIOS: require("./models/apple_plate.usdz"),
   },
   {
