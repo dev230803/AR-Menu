@@ -32,6 +32,9 @@ const ContactSection = () => {
       console.log("EmailJS result:", result);
 
       if (result.status === 200) {
+        if (window.fbq) {
+          window.fbq('track', 'Lead');
+        }
         setIsSubmitted(true);
         setEmail("");
         setPhone("");
