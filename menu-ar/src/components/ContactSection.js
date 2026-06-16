@@ -77,8 +77,7 @@ const ContactSection = () => {
             {isSubmitted && (
               <div className="mb-6 p-4 bg-green-500/20 border border-green-500/30 rounded-lg">
                 <p className="text-green-300 text-center">
-                  Thank you! We'll get back to you soon. Check your email for
-                  confirmation.
+                  Thank you! We'll get back to you soon.
                 </p>
               </div>
             )}
@@ -102,8 +101,9 @@ const ContactSection = () => {
                 <label
                   htmlFor="restaurantName"
                   className="block text-white/90 font-medium mb-2"
+                  
                 >
-                  Restaurant Name
+                  Restaurant Name*
                 </label>
                 <input
                   type="text"
@@ -113,6 +113,7 @@ const ContactSection = () => {
                   onChange={(e) => setRestaurantName(e.target.value)}
                   className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
                   placeholder="Enter your restaurant name"
+                  required
                 />
               </div>
 
@@ -120,8 +121,9 @@ const ContactSection = () => {
                 <label
                   htmlFor="location"
                   className="block text-white/90 font-medium mb-2"
+                  
                 >
-                  Location
+                  Location*
                 </label>
                 <input
                   type="text"
@@ -131,6 +133,7 @@ const ContactSection = () => {
                   onChange={(e) => setLocation(e.target.value)}
                   className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
                   placeholder="City, State, Country"
+                  required
                 />
               </div>
 

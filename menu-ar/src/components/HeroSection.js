@@ -17,20 +17,25 @@ const HeroSection = () => {
 
   return (
     <section
-      className="relative min-h-screen flex items-center overflow-hidden pt-4"
+      className="relative min-h-[90vh] flex items-center overflow-hidden py-6"
       style={{
         backgroundImage: "linear-gradient(to bottom left,#000080,black 70%)",
       }}
     >
       <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="grid lg:grid-cols-2 gap-8 items-center">
+      
           {/* Left Side - Text Content */}
-          <div className="space-y-4">
+          <div className="space-y-3.5">
             {/* Main Headline */}
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold leading-tight text-white">
-              Where Menus Come ALIVE
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight text-white max-w-xl">
+            Let Customers See Dishes In 3D Before Ordering
             </h1>
-
+            <div className="inline-flex items-center px-5 py-2 rounded-full border border-purple-400 bg-white/5">
+            <span className="text-white font-semibold text-sm md:text-base text-center leading-tight">
+    🔥 FREE Setup For The First 10 Cafes
+  </span>
+</div>
             {/* Subheading */}
             <p
               className="text-white leading-relaxed font-light"
@@ -63,13 +68,13 @@ const HeroSection = () => {
             </p>
 
             {/* CTA Buttons - Side by Side */}
-            <div className="flex flex-col sm:flex-row gap-6 pt-2">
+            <div className="flex flex-col sm:flex-row gap-4 pt-1">
               {/* Contact Us Button */}
               <button
                 onClick={scrollToContact}
                 className="flex-1 max-w-sm h-16 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center text-xl font-semibold text-gray-800"
               >
-                Get a Free Demo
+                Claim Your Free Setup
               </button>
 
               {/* See Demo Button */}
@@ -92,11 +97,13 @@ const HeroSection = () => {
           {/* Right Side - Image */}
           <div className="relative flex justify-center">
             <div className="relative z-10">
+            
               <img
                 src={landing_page_image}
                 alt="3D Menu Experience"
-                className="w-full h-auto max-w-md mx-auto"
+                className="w-full h-auto max-w-[260px] md:max-w-md mx-auto"
               />
+              
             </div>
 
             {/* Floating Elements for Premium Feel */}

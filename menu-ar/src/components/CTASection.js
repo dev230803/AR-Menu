@@ -22,7 +22,7 @@ const CTASection = () => {
           </h2>
           <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
             Experience the future of dining menus today. See how your dishes
-            look in stunning 3D and AR.
+            look in stunning 3D.
           </p>
         </div>
 
