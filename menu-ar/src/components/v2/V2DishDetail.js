@@ -5,7 +5,7 @@ import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 import { useCart } from "../../context/CartContext";
 import restaurantData from "../../data/restaurantData";
 import CartDrawer from "./CartDrawer";
-import "@google/model-viewer";
+import ModelViewerModal from "./ModelViewerModal";
 import "./V2Styles.css";
 
 Chart.register(ArcElement, Tooltip, Legend);
@@ -147,51 +147,8 @@ const V2DishDetail = () => {
 
       <CartDrawer />
 
-      {/* 3D/AR Modal */}
       {show3D && (
-        <div className="v2-modal-overlay" onClick={() => setShow3D(false)}>
-          <div
-            className="v2-modal-content"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="v2-modal-close"
-              onClick={() => setShow3D(false)}
-              aria-label="Close 3D viewer"
-            >
-              ✕
-            </button>
-            <model-viewer
-              src={dish.model}
-              ios-src={dish.modelIOS}
-              ar
-              ar-modes="webxr scene-viewer quick-look"
-              camera-controls
-              auto-rotate
-              style={{
-                width: "100%",
-                height: "55vw",
-                maxWidth: 360,
-                maxHeight: 360,
-                background: "#FDFBF7",
-                borderRadius: 12,
-              }}
-              alt={`3D model of ${dish.name}`}
-              shadow-intensity="1"
-              exposure="1.1"
-            />
-            <div
-              style={{
-                marginTop: 10,
-                color: "var(--v2-gold-dark)",
-                fontWeight: 600,
-                fontSize: "0.85rem",
-              }}
-            >
-              Tap the AR icon to view in your space!
-            </div>
-          </div>
-        </div>
+        <ModelViewerModal dish={dish} onClose={() => setShow3D(false)} />
       )}
     </div>
   );

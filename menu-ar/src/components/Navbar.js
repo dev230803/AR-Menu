@@ -61,7 +61,7 @@ const Navbar = () => {
           {/* CTA Button */}
           <div className="hidden md:block">
             <button
-              onClick={() => navigate("/demo")}
+              onClick={() => navigate("/v2/menu?cat=bestsellers")}
               className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               See Demo
@@ -130,7 +130,7 @@ const Navbar = () => {
               </button>
               <div className="pt-2">
                 <button
-                  onClick={() => navigate("/demo")}
+                  onClick={() => navigate("/v2")}
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
                 >
                   See Demo

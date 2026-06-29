@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useVegFilter } from "../../context/VegFilterContext";
 import { useCart } from "../../context/CartContext";
 import restaurantData from "../../data/restaurantData";
 import CartDrawer from "./CartDrawer";
+import ModelViewerModal from "./ModelViewerModal";
 import "./V2Styles.css";
 
 const { meta, categories, dishes } = restaurantData;
@@ -11,68 +12,31 @@ const BESTSELLER_ID = "bestsellers";
 
 const MenuPage = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { vegFilter, setVegOnly, setNonVegOnly, clearFilter } = useVegFilter();
   const { totalItems, openCart } = useCart();
   const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState(
-    searchParams.get("cat") || BESTSELLER_ID
-  );
+  const [dishFor3D, setDishFor3D] = useState(null);
 
-  const sectionRefs = useRef({});
-  const scrollContainerRef = useRef(null);
-  const isScrollingFromClick = useRef(false);
-
-  const registerRef = useCallback((id, el) => {
-    if (el) sectionRefs.current[id] = el;
-  }, []);
+  const catParam = searchParams.get("cat");
+  const activeCategory =
+    catParam ||
+    (dishes.some((d) => d.bestseller) ? BESTSELLER_ID : categories[0]?.id);
 
   useEffect(() => {
-    const catParam = searchParams.get("cat");
-    if (catParam && sectionRefs.current[catParam]) {
-      setTimeout(() => {
-        sectionRefs.current[catParam].scrollIntoView({ behavior: "smooth" });
-      }, 100);
+    if (!catParam) {
+      const defaultCat = dishes.some((d) => d.bestseller)
+        ? BESTSELLER_ID
+        : categories[0]?.id;
+      if (defaultCat) {
+        setSearchParams({ cat: defaultCat }, { replace: true });
+      }
     }
-  }, [searchParams]);
+  }, [catParam, setSearchParams]);
 
-  const handleSidebarClick = (catId) => {
-    setActiveCategory(catId);
-    isScrollingFromClick.current = true;
-    const el = sectionRefs.current[catId];
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-      setTimeout(() => {
-        isScrollingFromClick.current = false;
-      }, 800);
-    }
+  const handleCategoryChange = (catId) => {
+    setSearchParams({ cat: catId });
   };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (isScrollingFromClick.current) return;
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveCategory(entry.target.dataset.catId);
-            break;
-          }
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    const refs = sectionRefs.current;
-    Object.values(refs).forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
-    return () => {
-      Object.values(refs).forEach((el) => {
-        if (el) observer.unobserve(el);
-      });
-    };
-  }, [search, vegFilter]);
 
   const searchLower = search.trim().toLowerCase();
   let filteredDishes = dishes;
@@ -92,18 +56,25 @@ const MenuPage = () => {
 
   const sidebarItems = [
     ...(bestsellers.length > 0
-      ? [{ id: BESTSELLER_ID, name: "Bestsellers" }]
+      ? [{ id: BESTSELLER_ID, name: "BestSeller" }]
       : []),
     ...categories.filter((cat) =>
       filteredDishes.some((d) => d.category === cat.id)
     ),
   ];
 
+  const categoryDishes =
+    activeCategory === BESTSELLER_ID
+      ? bestsellers
+      : filteredDishes.filter((d) => d.category === activeCategory);
+
+  const activeCategoryName =
+    sidebarItems.find((item) => item.id === activeCategory)?.name || "";
+
   return (
     <div className="v2-page">
       <div className="v2-menu-page">
-        {/* Sidebar */}
-        <nav className="v2-sidebar" ref={scrollContainerRef}>
+        <nav className="v2-sidebar">
           <button
             className="v2-sidebar-item"
             onClick={() => navigate("/v2")}
@@ -115,36 +86,32 @@ const MenuPage = () => {
             <button
               key={item.id}
               className={`v2-sidebar-item ${activeCategory === item.id ? "active" : ""}`}
-              onClick={() => handleSidebarClick(item.id)}
+              onClick={() => handleCategoryChange(item.id)}
             >
               {item.name}
             </button>
           ))}
         </nav>
 
-        {/* Main */}
         <div className="v2-menu-main">
-          {/* Sticky Header */}
           <div className="v2-menu-header">
             <div className="v2-menu-header-top">
               <h1 className="v2-menu-restaurant-name">{meta.name}</h1>
-              <div className="v2-cart-btn-wrap">
-                <button
-                  className="v2-cart-btn"
-                  aria-label="Cart"
-                  onClick={openCart}
-                >
-                  🛒
-                </button>
+              <button
+                className="v2-cart-label-btn"
+                aria-label="Cart"
+                onClick={openCart}
+              >
+                Cart
                 {totalItems > 0 && (
-                  <span className="v2-cart-badge">{totalItems}</span>
+                  <span className="v2-cart-label-badge">{totalItems}</span>
                 )}
-              </div>
+              </button>
             </div>
             <input
               type="text"
               className="v2-search-bar"
-              placeholder="Search dishes..."
+              placeholder="Search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -163,66 +130,29 @@ const MenuPage = () => {
                   vegFilter === false ? clearFilter() : setNonVegOnly()
                 }
               >
-                Non-Veg
+                Non-veg
               </button>
-              {vegFilter !== null && (
-                <button
-                  className="v2-filter-btn active-clear"
-                  onClick={clearFilter}
-                >
-                  Clear
-                </button>
-              )}
             </div>
           </div>
 
-          {/* Dish Sections */}
           <div className="v2-menu-content">
-            {bestsellers.length > 0 && (
-              <div
-                className="v2-menu-category-section"
-                ref={(el) => registerRef(BESTSELLER_ID, el)}
-                data-cat-id={BESTSELLER_ID}
-              >
-                <div className="v2-menu-category-title">Bestsellers</div>
-                <div className="v2-dish-grid">
-                  {bestsellers.map((dish) => (
-                    <DishCard key={dish.id} dish={dish} navigate={navigate} />
-                  ))}
-                </div>
-              </div>
+            {activeCategoryName && (
+              <div className="v2-menu-category-title">{activeCategoryName}</div>
             )}
 
-            {categories.map((cat) => {
-              const catDishes = filteredDishes.filter(
-                (d) => d.category === cat.id
-              );
-              if (catDishes.length === 0) return null;
-              return (
-                <div
-                  key={cat.id}
-                  className="v2-menu-category-section"
-                  ref={(el) => registerRef(cat.id, el)}
-                  data-cat-id={cat.id}
-                >
-                  <div className="v2-menu-category-title">{cat.name}</div>
-                  <div className="v2-dish-grid">
-                    {catDishes.map((dish) => (
-                      <DishCard key={dish.id} dish={dish} navigate={navigate} />
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-
-            {filteredDishes.length === 0 && (
-              <div
-                style={{
-                  textAlign: "center",
-                  padding: 40,
-                  color: "var(--v2-text-muted)",
-                }}
-              >
+            {categoryDishes.length > 0 ? (
+              <div className="v2-dish-grid">
+                {categoryDishes.map((dish) => (
+                  <DishCard
+                    key={dish.id}
+                    dish={dish}
+                    navigate={navigate}
+                    onView3D={() => setDishFor3D(dish)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="v2-menu-empty">
                 No dishes found matching your search.
               </div>
             )}
@@ -231,44 +161,45 @@ const MenuPage = () => {
       </div>
 
       <CartDrawer />
+
+      {dishFor3D && (
+        <ModelViewerModal dish={dishFor3D} onClose={() => setDishFor3D(null)} />
+      )}
     </div>
   );
 };
 
-const DishCard = ({ dish, navigate }) => {
+const DishCard = ({ dish, navigate, onView3D }) => {
   const { getQuantity, addItem, increment, decrement } = useCart();
   const qty = getQuantity(dish.id);
 
   return (
-    <div
-      className="v2-dish-card"
-      onClick={() => navigate(`/v2/dish/${dish.id}`)}
-    >
+    <div className="v2-dish-card">
+      <button
+        type="button"
+        className="v2-dish-card-name-btn"
+        onClick={() => navigate(`/v2/dish/${dish.id}`)}
+      >
+        <span
+          className={dish.veg ? "v2-dish-card-veg" : "v2-dish-card-nonveg"}
+        />
+        {dish.name}
+      </button>
       <img className="v2-dish-card-img" src={dish.image} alt={dish.name} />
       <div className="v2-dish-card-body">
-        <div style={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
-          <span
-            className={dish.veg ? "v2-dish-card-veg" : "v2-dish-card-nonveg"}
-          />
-          <span className="v2-dish-card-name">{dish.name}</span>
-        </div>
         <div className="v2-dish-card-price">₹{dish.price}</div>
-        <div className="v2-dish-card-actions">
+        <div className="v2-dish-card-actions v2-dish-card-actions-stacked">
           <button
+            type="button"
             className="v2-btn-3d"
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate(`/v2/dish/${dish.id}?view3d=true`);
-            }}
+            onClick={onView3D}
           >
             View in 3D
           </button>
           {qty > 0 ? (
-            <div
-              className="v2-qty-control"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="v2-qty-control v2-qty-control-full">
               <button
+                type="button"
                 className="v2-qty-btn"
                 onClick={() => decrement(dish.id)}
               >
@@ -276,6 +207,7 @@ const DishCard = ({ dish, navigate }) => {
               </button>
               <span className="v2-qty-value">{qty}</span>
               <button
+                type="button"
                 className="v2-qty-btn"
                 onClick={() => increment(dish.id)}
               >
@@ -284,11 +216,9 @@ const DishCard = ({ dish, navigate }) => {
             </div>
           ) : (
             <button
+              type="button"
               className="v2-btn-order"
-              onClick={(e) => {
-                e.stopPropagation();
-                addItem(dish);
-              }}
+              onClick={() => addItem(dish)}
             >
               Order
             </button>

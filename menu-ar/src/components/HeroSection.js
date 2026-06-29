@@ -12,7 +12,7 @@ const HeroSection = () => {
   };
 
   const goToMenu = () => {
-    navigate("/demo");
+    navigate("/v2/menu?cat=bestsellers");
   };
 
   return (
