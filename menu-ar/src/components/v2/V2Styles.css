@@ -430,7 +430,14 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
-  align-items: start;
+  align-items: stretch;
+}
+.v2-swivel-card-clip,
+.v2-swivel-card-wrapper,
+.v2-swivel-card,
+.v2-swivel-card-inner,
+.v2-swivel-face {
+  height: 100%;
 }
 
 .v2-dish-grid > * {
