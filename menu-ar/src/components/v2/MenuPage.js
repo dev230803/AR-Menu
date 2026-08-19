@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useVegFilter } from "../../context/VegFilterContext";
 import { useCart } from "../../context/CartContext";
 import restaurantData from "../../data/restaurantData";
 import CartDrawer from "./CartDrawer";
 import ModelViewerModal from "./ModelViewerModal";
+import SwivelDishCard from "./SwivelDishCard";
 import "./V2Styles.css";
 
 const { meta, categories, dishes } = restaurantData;
@@ -17,6 +18,21 @@ const MenuPage = () => {
   const { totalItems, openCart } = useCart();
   const [search, setSearch] = useState("");
   const [dishFor3D, setDishFor3D] = useState(null);
+  const [cardSwivelStates, setCardSwivelStates] = useState({});
+
+  const handleCardSwivel = useCallback((dishId) => {
+    setCardSwivelStates((prev) => ({
+      ...prev,
+      [dishId]: prev[dishId] === 1 ? 0 : 1,
+    }));
+  }, []);
+
+  const handleResetCardSwivel = useCallback((dishId) => {
+    setCardSwivelStates((prev) => {
+      if ((prev[dishId] ?? 0) === 0) return prev;
+      return { ...prev, [dishId]: 0 };
+    });
+  }, []);
 
   const catParam = searchParams.get("cat");
   const activeCategory =
@@ -143,11 +159,14 @@ const MenuPage = () => {
             {categoryDishes.length > 0 ? (
               <div className="v2-dish-grid">
                 {categoryDishes.map((dish) => (
-                  <DishCard
+                  <SwivelDishCard
                     key={dish.id}
                     dish={dish}
                     navigate={navigate}
                     onView3D={() => setDishFor3D(dish)}
+                    swivelState={cardSwivelStates[dish.id] ?? 0}
+                    onSwivel={handleCardSwivel}
+                    onResetSwivel={handleResetCardSwivel}
                   />
                 ))}
               </div>
@@ -165,66 +184,6 @@ const MenuPage = () => {
       {dishFor3D && (
         <ModelViewerModal dish={dishFor3D} onClose={() => setDishFor3D(null)} />
       )}
-    </div>
-  );
-};
-
-const DishCard = ({ dish, navigate, onView3D }) => {
-  const { getQuantity, addItem, increment, decrement } = useCart();
-  const qty = getQuantity(dish.id);
-
-  return (
-    <div className="v2-dish-card">
-      <button
-        type="button"
-        className="v2-dish-card-name-btn"
-        onClick={() => navigate(`/v2/dish/${dish.id}`)}
-      >
-        <span
-          className={dish.veg ? "v2-dish-card-veg" : "v2-dish-card-nonveg"}
-        />
-        {dish.name}
-      </button>
-      <img className="v2-dish-card-img" src={dish.image} alt={dish.name} />
-      <div className="v2-dish-card-body">
-        <div className="v2-dish-card-price">₹{dish.price}</div>
-        <div className="v2-dish-card-actions v2-dish-card-actions-stacked">
-          <button
-            type="button"
-            className="v2-btn-3d"
-            onClick={onView3D}
-          >
-            View in 3D
-          </button>
-          {qty > 0 ? (
-            <div className="v2-qty-control v2-qty-control-full">
-              <button
-                type="button"
-                className="v2-qty-btn"
-                onClick={() => decrement(dish.id)}
-              >
-                −
-              </button>
-              <span className="v2-qty-value">{qty}</span>
-              <button
-                type="button"
-                className="v2-qty-btn"
-                onClick={() => increment(dish.id)}
-              >
-                +
-              </button>
-            </div>
-          ) : (
-            <button
-              type="button"
-              className="v2-btn-order"
-              onClick={() => addItem(dish)}
-            >
-              Order
-            </button>
-          )}
-        </div>
-      </div>
     </div>
   );
 };

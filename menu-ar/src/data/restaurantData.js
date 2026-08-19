@@ -130,6 +130,13 @@ const restaurantData = {
     price: 149,
     description: "Crispy rolls stuffed with veggies.",
     nutrition: { protein: 3, carbs: 15, fat: 5 },
+    tasteProfile: {
+      comparisonText:
+        "Similar to an aloo tikki roll, but crispier and lighter on spice.",
+      spiceLevel: 2,
+      flavors: { spicy: 2, sweet: 0, sour: 1, savory: 4 },
+      textureTags: ["Crispy", "Crunchy"],
+    },
     quantity: "4 pieces",
     bestseller: true,
     veg: true,
@@ -145,6 +152,12 @@ const restaurantData = {
     price: 49,
     description: "Freshly squeezed lemonade.",
     nutrition: { protein: 0, carbs: 25, fat: 0 },
+    tasteProfile: {
+      comparisonText: "Bright and tangy, like fresh nimbu pani on a hot day.",
+      spiceLevel: 0,
+      flavors: { spicy: 0, sweet: 2, sour: 5, savory: 0 },
+      textureTags: ["Juicy"],
+    },
     quantity: "1 glass",
     bestseller: false,
     veg: true,
@@ -161,6 +174,13 @@ const restaurantData = {
     description:
       "Cappuccino enhanced with the delicate and subtle essence of hazelnut",
     nutrition: { protein: 12, carbs: 58, fat: 30 },
+    tasteProfile: {
+      comparisonText:
+        "Smooth and chilled — like a frappe with a deeper coffee kick.",
+      spiceLevel: 0,
+      flavors: { spicy: 0, sweet: 3, sour: 0, savory: 2 },
+      textureTags: ["Creamy", "Juicy"],
+    },
     quantity: "750 ml",
     bestseller: false,
     veg: true,
@@ -177,6 +197,13 @@ const restaurantData = {
     description:
       "A rich espresso, balanced with milk and a thin layer of foam.",
     nutrition: { protein: 12, carbs: 58, fat: 30 },
+    tasteProfile: {
+      comparisonText:
+        "Clean espresso over ice — milder than a cold brew, smoother than an americano.",
+      spiceLevel: 0,
+      flavors: { spicy: 0, sweet: 2, sour: 0, savory: 3 },
+      textureTags: ["Creamy", "Juicy"],
+    },
     quantity: "750 ml",
     bestseller: false,
     veg: true,
@@ -192,6 +219,13 @@ const restaurantData = {
     price: 249,
     description: "Delicious ice cream sundae topped with chocolate syrup, nuts, and whipped cream.",
     nutrition: { protein: 5, carbs: 35, fat: 14 },
+    tasteProfile: {
+      comparisonText:
+        "Like a classic hot fudge sundae — rich, cold, and indulgent.",
+      spiceLevel: 0,
+      flavors: { spicy: 0, sweet: 5, sour: 0, savory: 1 },
+      textureTags: ["Creamy", "Soft"],
+    },
     quantity: "serves 2",
     bestseller: true,
     veg: true,
@@ -206,6 +240,13 @@ const restaurantData = {
     price: 199,
     description: "Crispy golden waffles topped with rich chocolate sauce and a scoop of creamy vanilla ice cream.",
     nutrition: { protein: 7, carbs: 40, fat: 16 },
+    tasteProfile: {
+      comparisonText:
+        "Crisp-edged waffle with the warmth of a churro and cool vanilla on top.",
+      spiceLevel: 0,
+      flavors: { spicy: 0, sweet: 4, sour: 0, savory: 2 },
+      textureTags: ["Crispy", "Soft", "Creamy"],
+    },
     quantity: "Serves 1",
     bestseller: true,
     veg: true,
@@ -220,6 +261,13 @@ const restaurantData = {
     price: 199,
     description: "Crunchy waffle sandwich layered with creamy ice cream, chocolate coating, and colorful sprinkles.",
     nutrition: { protein: 6, carbs: 38, fat: 15 },
+    tasteProfile: {
+      comparisonText:
+        "A handheld ice cream bar meets a crunchy cookie — sweet with every bite.",
+      spiceLevel: 0,
+      flavors: { spicy: 0, sweet: 4, sour: 0, savory: 1 },
+      textureTags: ["Crunchy", "Creamy"],
+    },
     quantity: "Serves 1",
     bestseller: false,
     veg: true,
@@ -234,6 +282,13 @@ const restaurantData = {
     price: 499,
     description: "Creamy cheesecake with a graham crust.",
     nutrition: { protein: 6, carbs: 28, fat: 18 },
+    tasteProfile: {
+      comparisonText:
+        "Smooth and rich, closer to a New York-style slice than a light mousse.",
+      spiceLevel: 0,
+      flavors: { spicy: 0, sweet: 4, sour: 1, savory: 2 },
+      textureTags: ["Creamy", "Soft"],
+    },
     quantity: "1 slice",
     bestseller: false,
     veg: true,
@@ -249,6 +304,13 @@ const restaurantData = {
     price: 275,
     description: "Classic Caesar salad with parmesan and croutons.",
     nutrition: { protein: 7, carbs: 12, fat: 10 },
+    tasteProfile: {
+      comparisonText:
+        "Bold and garlicky — closer to a classic Caesar than a garden salad.",
+      spiceLevel: 1,
+      flavors: { spicy: 1, sweet: 0, sour: 2, savory: 4 },
+      textureTags: ["Crunchy", "Creamy"],
+    },
     quantity: "1 bowl",
     bestseller: true,
     veg: false,
@@ -264,6 +326,13 @@ const restaurantData = {
     price: 149,
     description: "Rich and creamy tomato soup.",
     nutrition: { protein: 2, carbs: 14, fat: 3 },
+    tasteProfile: {
+      comparisonText:
+        "Comforting and tangy — like shorba with a rich tomato base.",
+      spiceLevel: 1,
+      flavors: { spicy: 1, sweet: 2, sour: 3, savory: 3 },
+      textureTags: ["Creamy", "Soft"],
+    },
     quantity: "1 bowl",
     bestseller: false,
     veg: true,
@@ -295,6 +364,13 @@ const restaurantData = {
     price: 249,
     description: "Chilled mango smoothie with yogurt.",
     nutrition: { protein: 4, carbs: 30, fat: 2 },
+    tasteProfile: {
+      comparisonText:
+        "Tropical and refreshing — like a ripe Alphonso mango lassi, but thicker.",
+      spiceLevel: 0,
+      flavors: { spicy: 0, sweet: 5, sour: 1, savory: 0 },
+      textureTags: ["Creamy", "Juicy"],
+    },
     quantity: "750 ml",
     bestseller: true,
     veg: true,
@@ -310,6 +386,13 @@ const restaurantData = {
     price: 349,
     description: "Salad with feta, olives, cucumber, and tomatoes.",
     nutrition: { protein: 5, carbs: 10, fat: 9 },
+    tasteProfile: {
+      comparisonText:
+        "Bright Mediterranean — feta and olives give it a salty, tangy punch.",
+      spiceLevel: 0,
+      flavors: { spicy: 0, sweet: 1, sour: 3, savory: 4 },
+      textureTags: ["Crunchy", "Juicy"],
+    },
     quantity: "1 bowl",
     bestseller: false,
     veg: true,
@@ -325,6 +408,13 @@ const restaurantData = {
     price: 149,
     description: "Spicy Indo-Chinese soup with crispy noodles.",
     nutrition: { protein: 3, carbs: 18, fat: 4 },
+    tasteProfile: {
+      comparisonText:
+        "Bold Indo-Chinese heat — think street-side manchow with extra crunch.",
+      spiceLevel: 4,
+      flavors: { spicy: 4, sweet: 1, sour: 2, savory: 3 },
+      textureTags: ["Crunchy", "Juicy"],
+    },
     quantity: "1 bowl",
     bestseller: true,
     veg: true,
@@ -340,6 +430,13 @@ const restaurantData = {
     price: 119,
     description: "Rich chocolate brownie with walnuts.",
     nutrition: { protein: 4, carbs: 32, fat: 15 },
+    tasteProfile: {
+      comparisonText:
+        "Deep cocoa richness with a fudgy center — like a warm brownie straight from the oven.",
+      spiceLevel: 0,
+      flavors: { spicy: 0, sweet: 5, sour: 0, savory: 2 },
+      textureTags: ["Soft", "Chewy"],
+    },
     quantity: "1 piece",
     bestseller: true,
     veg: true,
@@ -355,6 +452,13 @@ const restaurantData = {
     price: 129,
     description: "Soft vanilla cupcake topped with buttercream frosting.",
     nutrition: { protein: 3, carbs: 35, fat: 12 },
+    tasteProfile: {
+      comparisonText:
+        "Light vanilla sponge with sweet buttercream — classic bakery-style, not overly rich.",
+      spiceLevel: 0,
+      flavors: { spicy: 0, sweet: 4, sour: 0, savory: 1 },
+      textureTags: ["Soft", "Creamy"],
+    },
     quantity: "1 piece",
     bestseller: false,
     veg: true,
@@ -370,6 +474,13 @@ const restaurantData = {
     price: 295,
     description: "Mocha with herb-infused sea salt, topped with latte",
     nutrition: { protein: 2, carbs: 91, fat: 7 },
+    tasteProfile: {
+      comparisonText:
+        "Sweet-salty mocha with a hint of herb — unexpected but balanced, like a salted caramel latte.",
+      spiceLevel: 0,
+      flavors: { spicy: 0, sweet: 4, sour: 0, savory: 3 },
+      textureTags: ["Creamy", "Juicy"],
+    },
     quantity: "500 ml",
     bestseller: true,
     veg: true,
@@ -386,6 +497,13 @@ const restaurantData = {
     description:
       "Cappuccino enhanced with the delicate and subtle essence of hazelnut",
     nutrition: { protein: 2, carbs: 91, fat: 7 },
+    tasteProfile: {
+      comparisonText:
+        "Nutty and aromatic — hazelnut rounds out the espresso like a praline cappuccino.",
+      spiceLevel: 0,
+      flavors: { spicy: 0, sweet: 3, sour: 0, savory: 3 },
+      textureTags: ["Creamy"],
+    },
     quantity: "500 ml",
     bestseller: false,
     veg: true,
@@ -401,6 +519,13 @@ const restaurantData = {
     price: 295,
     description: "A light coffee with flavors of French vanilla.",
     nutrition: { protein: 13, carbs: 62, fat: 25 },
+    tasteProfile: {
+      comparisonText:
+        "Velvety and fragrant — French vanilla softens the coffee into a dessert-like drink.",
+      spiceLevel: 0,
+      flavors: { spicy: 0, sweet: 4, sour: 0, savory: 2 },
+      textureTags: ["Creamy", "Soft"],
+    },
     quantity: "500 ml",
     bestseller: false,
     veg: true,
@@ -416,6 +541,13 @@ const restaurantData = {
     price: 349,
     description: "Juicy grilled chicken breast with herbs.",
     nutrition: { protein: 30, carbs: 2, fat: 8 },
+    tasteProfile: {
+      comparisonText:
+        "Herb-rubbed and smoky, like tandoori chicken without the char-heavy crust.",
+      spiceLevel: 2,
+      flavors: { spicy: 2, sweet: 0, sour: 0, savory: 5 },
+      textureTags: ["Juicy", "Soft"],
+    },
     quantity: "1 plate",
     bestseller: false,
     veg: false,

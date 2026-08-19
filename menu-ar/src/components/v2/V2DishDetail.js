@@ -6,6 +6,7 @@ import { useCart } from "../../context/CartContext";
 import restaurantData from "../../data/restaurantData";
 import CartDrawer from "./CartDrawer";
 import ModelViewerModal from "./ModelViewerModal";
+import TasteProfileCard from "./TasteProfileCard";
 import "./V2Styles.css";
 
 Chart.register(ArcElement, Tooltip, Legend);
@@ -83,7 +84,8 @@ const V2DishDetail = () => {
                 </div>
               )}
             </div>
-
+            <TasteProfileCard tasteProfile={dish.tasteProfile} />
+            
             <div className="v2-detail-nutrition">
               <h3>Nutritional Info</h3>
               <div style={{ maxWidth: 200, margin: "0 auto" }}>
@@ -104,6 +106,8 @@ const V2DishDetail = () => {
                 <span>Fat: {nutrition.fat}g</span>
               </div>
             </div>
+
+            
 
             <div className="v2-detail-actions">
               <button
