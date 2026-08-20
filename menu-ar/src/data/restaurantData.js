@@ -1,6 +1,7 @@
 import sundaeImg from "../images/ice_cream_sundae.png";
 import waffleImg from "../images/belgian_waffle.png";
 import sandwichImg from "../images/ice_cream_sandwich.png";
+import dimsumImg from "../images/dimsum.png";
 const dishModel = require("../models/apple_plate.glb");
 const dishModelIOS = require("../models/apple_plate.usdz");
 
@@ -144,6 +145,28 @@ const restaurantData = {
       "https://d1mxd7n691o8sz.cloudfront.net/static/recipe/recipe/2023-12/Vegetable-Spring-Rolls-2-1-906001560ca545c8bc72baf473f230b4_thumbnail_170.jpeg",
     model: require("../models/spring_roll2-compressed.glb"),
     modelIOS: require("../models/spring_roll2.usdz"),
+  },
+  {
+    id: "asian-steamed-dumplings",
+    name: "Asian Steamed Dumplings",
+    category: "starters",
+    price: 189,
+    description:
+      "Delicate steamed dumplings filled with seasoned vegetables, served with soy dipping sauce.",
+    nutrition: { protein: 5, carbs: 22, fat: 4 },
+    tasteProfile: {
+      comparisonText:
+        "Soft and savory, like momos with a lighter, cleaner bite.",
+      spiceLevel: 1,
+      flavors: { spicy: 1, sweet: 0, sour: 1, savory: 4 },
+      textureTags: ["Soft", "Juicy"],
+    },
+    quantity: "4 pieces",
+    bestseller: true,
+    veg: true,
+    image: dimsumImg,
+    model: require("../models/dimsim.glb"),
+    modelIOS: null,
   },
   {
     id: "lemonade",
